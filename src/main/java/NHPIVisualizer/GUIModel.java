@@ -1,6 +1,7 @@
 package NHPIVisualizer;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 
 /*
@@ -18,6 +19,13 @@ public class GUIModel {
 	
 	// To initialize connection to database
 	public GUIModel(String url, String username, String password) {
+		
+		try {
+			this.connection = DriverManager.getConnection(url, username, password);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

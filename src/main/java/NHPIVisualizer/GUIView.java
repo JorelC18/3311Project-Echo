@@ -2,7 +2,9 @@ package NHPIVisualizer;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.sql.ResultSet;
 import java.util.Vector;
 
@@ -13,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * View part of MVC architecture.
@@ -27,10 +30,16 @@ public class GUIView extends JFrame {
 	
 	// Panels
 	private JPanel geographicalParametersPanel;
-	private JPanel geographicalParametersSubPanel;
-	private JPanel geographicalParametersSubPanel1;
-	private JPanel geographicalParametersSubPanel2;
+	private JPanel geographicalParametersMainSubPanel;
+	private JPanel geographicalParametersPTSubPanel;
+	private JPanel geographicalParametersProvinceSubPanel;
+	private JPanel geographicalParametersTownSubPanel;
 	private JPanel timeParametersPanel;
+	private JPanel timeParametersMainSubPanel;
+	private JPanel timeParametersBMYSubPanel;
+	private JPanel timeParametersBothSubPanel;
+	private JPanel timeParametersMonthSubPanel;
+	private JPanel timeParametersYearSubPanel;
 	private JPanel tablePanel;
 	private JPanel loadChartPanel;
 	private JPanel buttonsPanel;
@@ -43,8 +52,12 @@ public class GUIView extends JFrame {
 	private JLabel startYearLabel;
     private JLabel endMonthLabel;
     private JLabel endYearLabel;
+    private JLabel startMonthLabel2;
+	private JLabel startYearLabel2;
+    private JLabel endMonthLabel2;
+    private JLabel endYearLabel2;
     private JLabel timeGranularityLabel;
-    private JLabel loadChartLabel;
+    private JLabel chartTypeLabel;
     
     // Combo boxes
     public static JComboBox<String> geographicalParametersComboBox;
@@ -52,20 +65,27 @@ public class GUIView extends JFrame {
     public static JComboBox<String> provinceList2;
     public static JComboBox<String> townList1;
     public static JComboBox<String> townList2;
+    public static JComboBox<String> timeGranularityComboBox;
     public static JComboBox<String> startMonthComboBox;
     public static JComboBox<String> startYearComboBox;
     public static JComboBox<String> endMonthComboBox;
     public static JComboBox<String> endYearComboBox;
+    public static JComboBox<String> startMonthComboBox2;
+    public static JComboBox<String> startYearComboBox2;
+    public static JComboBox<String> endMonthComboBox2;
+    public static JComboBox<String> endYearComboBox2;
     public static JComboBox<String> chartTypesComboBox;
     
     // Buttons
+    private JButton addTimeSeriesButton;
     private JButton loadRawDataButton;
     private JButton loadSummaryDataButton;
     private JButton loadChartButton;
     private JButton resetButton;
     
     // Tables
-    private JTable table;
+    private JTable rawDataTable;
+    private JTable summaryDataTable;
     
     // Scroll Panes
     private JScrollPane scrollPane;
@@ -77,17 +97,26 @@ public class GUIView extends JFrame {
 		frame = new JFrame("NHPI Visualizer");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setSize(1300, 800);
+		frame.setLayout(new BorderLayout());
+		//frame.setSize(800, 800);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 		// JPanels:
 		geographicalParametersPanel = new JPanel();
-		geographicalParametersSubPanel = new JPanel();
-		geographicalParametersSubPanel1 = new JPanel();
-		geographicalParametersSubPanel2 = new JPanel();
+		geographicalParametersMainSubPanel = new JPanel();
+		geographicalParametersPTSubPanel = new JPanel();
+		geographicalParametersProvinceSubPanel = new JPanel();
+		geographicalParametersTownSubPanel = new JPanel();
 		timeParametersPanel = new JPanel();
+		timeParametersPanel.setPreferredSize(new Dimension(500, 500));
+		timeParametersMainSubPanel = new JPanel();
+		timeParametersBMYSubPanel = new JPanel();
+		timeParametersBothSubPanel = new JPanel();
+		timeParametersMonthSubPanel = new JPanel();
+		timeParametersYearSubPanel = new JPanel();
 		tablePanel = new JPanel();
+		tablePanel.setPreferredSize(new Dimension(500, 500));
 		loadChartPanel = new JPanel();
 		buttonsPanel = new JPanel();
 		overallPanel = new JPanel();
@@ -95,11 +124,16 @@ public class GUIView extends JFrame {
 		
 		// JLabels:
 		geographicalParametersLabel = new JLabel("Province or Town?");
+		timeGranularityLabel = new JLabel("Monthly or Yearly?");
 		startMonthLabel = new JLabel("Start Month:");
 		startYearLabel = new JLabel("Start Year:");
 		endMonthLabel = new JLabel("End Month:");
 		endYearLabel = new JLabel("End Year:");
-		timeGranularityLabel = new JLabel("Monthly or Yearly?");
+		startMonthLabel2 = new JLabel("Start Month:");
+		startYearLabel2 = new JLabel("Start Year:");
+		endMonthLabel2 = new JLabel("End Month:");
+		endYearLabel2 = new JLabel("End Year:");
+		chartTypeLabel = new JLabel("Chart Type:");
 		
 		/*
 		 * Initializing data for Comboboxes:
@@ -157,6 +191,9 @@ public class GUIView extends JFrame {
 		townNames.add("Winnipeg");
         townNames.sort(null);
         
+        // Monthly, Yearly or Both:
+        String[] timeGranularity = {"Both Monthly and Yearly", "Monthly", "Yearly"};
+        
         // Start & End Months:
         String[] months = {"01-January", "02-February", "03-March", "04-April",
 				"05-May", "06-June", "07-July", "08-August", "09-September", "10-October",
@@ -178,23 +215,42 @@ public class GUIView extends JFrame {
         provinceList2 = new JComboBox<String>(provincesNames);
         townList1 = new JComboBox<String>(townNames);
         townList2 = new JComboBox<String>(townNames);
+        timeGranularityComboBox = new JComboBox<String>(timeGranularity);
         startMonthComboBox = new JComboBox<String>(months);
 		startYearComboBox = new JComboBox<String>(years);
 		endMonthComboBox = new JComboBox<String>(months);
 		endYearComboBox = new JComboBox<String>(years);
+		startMonthComboBox2 = new JComboBox<String>(months);
+		startYearComboBox2 = new JComboBox<String>(years);
+		endMonthComboBox2 = new JComboBox<String>(months);
+		endYearComboBox2 = new JComboBox<String>(years);
 		chartTypesComboBox = new JComboBox<String>(chartTypes);
 		
 		// JButtons:
+		addTimeSeriesButton = new JButton("Add Time-Series");
 		loadRawDataButton = new JButton("Load Raw Data");
 		loadSummaryDataButton = new JButton("Load Summary Data");
-		loadChartButton = new JButton("Load Chart");
+		loadChartButton = new JButton("Load Chart (Separate Window)");
 		resetButton = new JButton("Reset");
 		
 		// Setting up layouts for panels:
+		
 		CardLayout cardLayout1 = new CardLayout();
-		geographicalParametersSubPanel.setLayout(cardLayout1);
-		timeParametersPanel.setLayout(new CardLayout());
-		tablePanel.setLayout(new BorderLayout());
+		CardLayout cardLayout2 = new CardLayout();
+		CardLayout cardLayout3 = new CardLayout();
+		
+		geographicalParametersPanel.setLayout(new FlowLayout());
+		geographicalParametersMainSubPanel.setLayout(new BorderLayout());
+		geographicalParametersPTSubPanel.setLayout(cardLayout1);
+		geographicalParametersProvinceSubPanel.setLayout(new FlowLayout());
+		geographicalParametersTownSubPanel.setLayout(new FlowLayout());
+		timeParametersPanel.setLayout(new BorderLayout());
+		timeParametersMainSubPanel.setLayout(new FlowLayout());
+		timeParametersBMYSubPanel.setLayout(cardLayout2);
+		timeParametersBothSubPanel.setLayout(new FlowLayout());
+		timeParametersMonthSubPanel.setLayout(new FlowLayout());
+		timeParametersYearSubPanel.setLayout(new FlowLayout());
+		tablePanel.setLayout(cardLayout3);
 		loadChartPanel.setLayout(new BorderLayout());
 		buttonsPanel.setLayout(new FlowLayout());
 		overallPanel.setLayout(new BorderLayout());
@@ -205,24 +261,75 @@ public class GUIView extends JFrame {
 		 */
 		
 		// Geographical Parameters Panel:
-		geographicalParametersPanel.add(geographicalParametersLabel);
-		geographicalParametersPanel.add(geographicalParametersComboBox);
-		geographicalParametersSubPanel1.add(provinceList1);
-		geographicalParametersSubPanel1.add(provinceList2);
-		geographicalParametersSubPanel2.add(townList1);
-		geographicalParametersSubPanel2.add(townList2);
-		geographicalParametersSubPanel.add(geographicalParametersSubPanel1, "1");
-		geographicalParametersSubPanel.add(geographicalParametersSubPanel2, "2");
-		cardLayout1.show(geographicalParametersSubPanel, "1");
-		geographicalParametersPanel.setVisible(true);
-		geographicalParametersPanel.add(geographicalParametersSubPanel);
-		frame.add(geographicalParametersPanel);
-		frame.pack();
-		System.out.println("check");
+		geographicalParametersMainSubPanel.add(geographicalParametersLabel, BorderLayout.WEST);
+		geographicalParametersMainSubPanel.add(geographicalParametersComboBox, BorderLayout.EAST);
+		geographicalParametersPanel.add(geographicalParametersMainSubPanel, FlowLayout.LEFT);
+		geographicalParametersProvinceSubPanel.add(provinceList1, FlowLayout.LEFT);
+		geographicalParametersProvinceSubPanel.add(provinceList2);
+		geographicalParametersTownSubPanel.add(townList1, FlowLayout.LEFT);
+		geographicalParametersTownSubPanel.add(townList2);
+		geographicalParametersPTSubPanel.add(geographicalParametersProvinceSubPanel, "Province");
+		geographicalParametersPTSubPanel.add(geographicalParametersTownSubPanel, "Town");
+		geographicalParametersPanel.add(geographicalParametersPTSubPanel);
+		frame.add(geographicalParametersPanel, BorderLayout.NORTH);
+		
+		
 		
 		// Time Parameters Panel:
+		timeParametersMainSubPanel.add(timeGranularityLabel, BorderLayout.WEST);
+		timeParametersMainSubPanel.add(timeGranularityComboBox, BorderLayout.EAST);
+		
+		timeParametersBothSubPanel.add(startMonthLabel2, FlowLayout.LEFT);
+		timeParametersBothSubPanel.add(startMonthComboBox2);
+		timeParametersBothSubPanel.add(startYearLabel2);
+		timeParametersBothSubPanel.add(startYearComboBox2);
+		timeParametersBothSubPanel.add(endMonthLabel2);
+		timeParametersBothSubPanel.add(endMonthComboBox2);
+		timeParametersBothSubPanel.add(endYearLabel2);
+		timeParametersBothSubPanel.add(endYearComboBox2);
+		
+		timeParametersMonthSubPanel.add(startMonthLabel, FlowLayout.LEFT);
+		timeParametersMonthSubPanel.add(startMonthComboBox);
+		timeParametersMonthSubPanel.add(endMonthLabel);
+		timeParametersMonthSubPanel.add(endMonthComboBox);
+		
+		timeParametersYearSubPanel.add(startYearLabel, FlowLayout.LEFT);
+		timeParametersYearSubPanel.add(startYearComboBox);
+		timeParametersYearSubPanel.add(endYearLabel);
+		timeParametersYearSubPanel.add(endYearComboBox);
+		
+		timeParametersBMYSubPanel.add(timeParametersBothSubPanel, "Both");
+		timeParametersBMYSubPanel.add(timeParametersMonthSubPanel, "Monthly");
+		timeParametersBMYSubPanel.add(timeParametersYearSubPanel, "Yearly");
+		
+		timeParametersPanel.add(timeParametersMainSubPanel, BorderLayout.NORTH);
+		timeParametersPanel.add(timeParametersBMYSubPanel, BorderLayout.CENTER);
+
+		frame.add(timeParametersPanel, BorderLayout.WEST);
+		
+		// Table Panel:
 		
 		
+		
+		scrollPane = new JScrollPane();
+		frame.add(scrollPane, BorderLayout.EAST);
+		
+		
+		// Buttons Panel:
+		
+		buttonsPanel.add(chartTypeLabel, FlowLayout.LEFT);
+		buttonsPanel.add(chartTypesComboBox);
+		buttonsPanel.add(addTimeSeriesButton);
+		buttonsPanel.add(loadRawDataButton);
+		buttonsPanel.add(loadSummaryDataButton);
+		buttonsPanel.add(loadChartButton);
+		buttonsPanel.add(resetButton);
+		
+		frame.add(buttonsPanel, BorderLayout.SOUTH);
+		
+		
+		
+		frame.pack();
 		
     }
     
