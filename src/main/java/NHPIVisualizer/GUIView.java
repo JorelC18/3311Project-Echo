@@ -91,11 +91,10 @@ public class GUIView extends JFrame {
     public JComboBox<String> chartTypesComboBox;
     
     // Buttons
-    private JButton addTimeSeriesButton;
     private JButton loadRawDataButton;
     private JButton loadSummaryDataButton;
     private JButton loadChartButton;
-    private JButton resetButton;
+    
     
     // Tables
     private JTable rawDataTable;
@@ -157,7 +156,8 @@ public class GUIView extends JFrame {
 		 */
 		
 		// Geographical Parameters:
-		String[] geographicalParameters = {"Province", "Town"};
+		String[] geographicalParameters = {"2 Provinces", "2 Towns", 
+					"3 Provinces", "3 Towns"};
 		
 		// Provinces:
 		Vector<String> provincesNames = new Vector<String>();
@@ -251,11 +251,11 @@ public class GUIView extends JFrame {
 		chartTypesComboBox = new JComboBox<String>(chartTypes);
 		
 		// JButtons:
-		addTimeSeriesButton = new JButton("Add Time-Series");
+		
 		loadRawDataButton = new JButton("Load Raw Data");
 		loadSummaryDataButton = new JButton("Load Summary Data");
 		loadChartButton = new JButton("Load Chart (Separate Window)");
-		resetButton = new JButton("Reset Time-Series");
+		
 		
 		// Setting up layouts for panels:
 		
@@ -352,8 +352,7 @@ public class GUIView extends JFrame {
 		
 		// Table Panel:
 		
-		DefaultTableModel model = new DefaultTableModel();
-		rawDataTable = new JTable(new Object[][]{}, new String [] {"REF_DATE", "GEO", "NHPIs", "VALUE"});
+		rawDataTable = new JTable();
 		rawDataScrollPane = new JScrollPane(rawDataTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
 				);
@@ -385,8 +384,6 @@ public class GUIView extends JFrame {
 		
 		buttonsPanel.add(chartTypeLabel, FlowLayout.LEFT);
 		buttonsPanel.add(chartTypesComboBox);
-		buttonsPanel.add(addTimeSeriesButton);
-		buttonsPanel.add(resetButton);
 		buttonsPanel.add(loadRawDataButton);
 		buttonsPanel.add(loadSummaryDataButton);
 		buttonsPanel.add(loadChartButton);
@@ -398,7 +395,7 @@ public class GUIView extends JFrame {
 		frame.pack();
 		
     }
-
+    
 
 
 	public JFrame getFrame() {
@@ -694,7 +691,7 @@ public class GUIView extends JFrame {
 	}
 
 
-
+	
 
 
 
@@ -702,7 +699,7 @@ public class GUIView extends JFrame {
 		return provinceList2;
 	}
 
-
+	
 
 
 
@@ -712,7 +709,7 @@ public class GUIView extends JFrame {
 	}
 
 
-
+	
 
 
 
@@ -720,7 +717,7 @@ public class GUIView extends JFrame {
 		return townList2;
 	}
 
-
+	
 
 
 
@@ -815,15 +812,6 @@ public class GUIView extends JFrame {
 
 
 
-	public JButton getAddTimeSeriesButton() {
-		return addTimeSeriesButton;
-	}
-
-
-
-
-
-
 	public JButton getLoadRawDataButton() {
 		return loadRawDataButton;
 	}
@@ -847,13 +835,6 @@ public class GUIView extends JFrame {
 	}
 
 
-
-
-
-
-	public JButton getResetButton() {
-		return resetButton;
-	}
 
 
 
@@ -910,43 +891,52 @@ public class GUIView extends JFrame {
 	public JComboBox<String> getThreeProvinceList1() {
 		return threeProvinceList1;
 	}
+	
+	
 
 
 
 	public JComboBox<String> getThreeProvinceList2() {
 		return threeProvinceList2;
 	}
+	
+	
 
 
 
 	public JComboBox<String> getThreeProvinceList3() {
 		return threeProvinceList3;
 	}
-
+	
+	
 
 
 	public JComboBox<String> getTownList3() {
 		return townList3;
 	}
-
+	
+	
 
 
 	public JComboBox<String> getThreeTownList1() {
 		return threeTownList1;
 	}
+	
+
 
 
 
 	public JComboBox<String> getThreeTownList2() {
 		return threeTownList2;
 	}
-
-
-
+	
+	
 	public JComboBox<String> getThreeTownList3() {
-		return threeTownList3;
+		return threeTownList2;
 	}
 
+
+	
 
 
 	public void displayData(ResultSet data) {

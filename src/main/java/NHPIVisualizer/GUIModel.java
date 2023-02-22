@@ -58,4 +58,8 @@ public class GUIModel {
 		return rs;
 	}
 	
+	public Connection getConnection() {
+		return this.connection;
+	}
+	
 }
