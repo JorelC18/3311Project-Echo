@@ -17,10 +17,16 @@ public class ThreeTownQuery implements Query {
 	}
 	
 	public String getQuery() {
-		return "SELECT * FROM echodata.echodata WHERE (GEO=" + "\"" + town1 + "\"" + 
-				" OR GEO=" + "\"" + town2 + "\"" + 
-						" OR GEO=" + "\"" + town3 + "\")" + " AND (REF_DATE <= " + "\"" + 
-				endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
+
+		System.out.println("SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + town1 + "%\"" 
+				+ " OR GEO LIKE \"%" + town2 + "%\"" 
+				+ " OR GEO LIKE \"%" + town3 + "%\")"
+				+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");");
+		
+		return "SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + town1 + "%\"" 
+				+ " OR GEO LIKE \"%" + town2 + "%\"" 
+				+ " OR GEO LIKE \"%" + town3 + "%\")"
+				+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
 	}
 	
 }

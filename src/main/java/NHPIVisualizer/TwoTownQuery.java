@@ -15,9 +15,12 @@ public class TwoTownQuery implements Query {
 	}
 	
 	public String getQuery() {
-		return "SELECT * FROM echodata.echodata WHERE (GEO=" + "\"" + town1 + "\"" + 
-				" OR GEO=" + "\"" + town2 + "\")" + " AND (REF_DATE <= " + "\"" + 
-				endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
+		
+		System.out.println("SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + town1 + "%\"" + " OR GEO LIKE \"%" + town2 + "%\")" 
+				+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");");
+		
+		return "SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + town1 + "%\"" + " OR GEO LIKE \"%" + town2 + "%\")" 
+		+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
 	}
 	
 }

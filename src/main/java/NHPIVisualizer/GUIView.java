@@ -358,18 +358,7 @@ public class GUIView extends JFrame {
 				);
 		rawDataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
-		String p1AvgHeader = provinceList1.getSelectedItem() + " Average";
-		String p2AvgHeader = provinceList2.getSelectedItem() + " Average";;
-		String p1STDHeader = provinceList1.getSelectedItem() + " Standard Deviation";
-		String p2STDHeader = provinceList2.getSelectedItem() + " Standard Deviation";
-		String p1MinHeader = provinceList1.getSelectedItem() + " Min";
-		String p1MaxHeader = provinceList1.getSelectedItem() + " Max";
-		String p2MinHeader = provinceList2.getSelectedItem() + " Min";
-		String p2MaxHeader = provinceList2.getSelectedItem() + " Max";
-		summaryDataTable = new JTable(new Object[][]{}, new String [] {p1AvgHeader, p2AvgHeader, 
-				p1STDHeader, p2STDHeader, p1MinHeader, 
-				p1MaxHeader, p2MinHeader, p2MaxHeader}
-				);
+		summaryDataTable = new JTable();
 		summaryDataScrollPane = new JScrollPane(summaryDataTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
 				);
@@ -932,7 +921,7 @@ public class GUIView extends JFrame {
 	
 	
 	public JComboBox<String> getThreeTownList3() {
-		return threeTownList2;
+		return threeTownList3;
 	}
 
 

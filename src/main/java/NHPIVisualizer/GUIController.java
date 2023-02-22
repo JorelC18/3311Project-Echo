@@ -148,7 +148,7 @@ public class GUIController {
 				System.out.println(query);
 				System.out.println(startDate);
 				System.out.println(endDate);
-				System.out.println(args[0] + " " + args[1]);
+				System.out.println(args[0] + " " + args[1] + " " + args[2]);
 				System.out.println("-------------------------------------------------");
 			}
 		});
@@ -159,7 +159,167 @@ public class GUIController {
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				String selected = view.getGeographicalParametersComboBox().getSelectedItem().toString();
+				String selected2 = view.getTimeGranularityComboBox().getSelectedItem().toString();
+				String[] args = new String[3];
+				String s1AvgHeader = "";
+				String s2AvgHeader = "";
+				String s3AvgHeader = "";
+				String s1STDHeader = "";
+				String s2STDHeader = "";
+				String s3STDHeader = "";
+				String s1MinHeader = "";
+				String s1MaxHeader = "";
+				String s2MinHeader = "";
+				String s2MaxHeader = "";
+				String s3MinHeader = "";
+				String s3MaxHeader = "";
+				String startDate = "";
+				String endDate = "";
+				Query query = null;
+				ResultSet result;
 				
+				if (checkBothMonthlyAndYearly(selected2)) {
+					endDate = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					startDate = view.getStartYearComboBox2().getSelectedItem().toString() + "-" + view.getStartMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+				} else if (checkMonthly(selected2)) {
+					endDate = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					startDate = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
+				} else {
+					endDate = view.getEndYearComboBox().getSelectedItem().toString();
+					startDate = view.getStartYearComboBox().getSelectedItem().toString();
+				}
+				
+				if (!dateErrorChecking(startDate, endDate)) 
+					JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+				
+				
+				if (selected.equals("2 Provinces"))  {
+					args[0] = view.getProvinceList1().getSelectedItem().toString();
+					args[1] = view.getProvinceList2().getSelectedItem().toString();
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) 
+						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+					query = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
+					
+					s1AvgHeader = view.getProvinceList1().getSelectedItem() + " Average";
+					s2AvgHeader = view.getProvinceList2().getSelectedItem() + " Average";
+					s1STDHeader = view.getProvinceList1().getSelectedItem() + " Standard Deviation";
+					s2STDHeader = view.getProvinceList2().getSelectedItem() + " Standard Deviation";
+					s1MinHeader = view.getProvinceList1().getSelectedItem() + " Min";
+					s1MaxHeader = view.getProvinceList1().getSelectedItem() + " Max";
+					s2MinHeader = view.getProvinceList2().getSelectedItem() + " Min";
+					s2MaxHeader = view.getProvinceList2().getSelectedItem() + " Max";
+					
+				} else if (selected.equals("2 Towns")) {
+					args[0] = view.getTownList1().getSelectedItem().toString();
+					args[1] = view.getTownList2().getSelectedItem().toString();
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) 
+						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+					query = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
+					
+					s1AvgHeader = view.getTownList1().getSelectedItem() + " Average";
+					s2AvgHeader = view.getTownList2().getSelectedItem() + " Average";
+					s1STDHeader = view.getTownList1().getSelectedItem() + " Standard Deviation";
+					s2STDHeader = view.getTownList2().getSelectedItem() + " Standard Deviation";
+					s1MinHeader = view.getTownList1().getSelectedItem() + " Min";
+					s1MaxHeader = view.getTownList1().getSelectedItem() + " Max";
+					s2MinHeader = view.getTownList2().getSelectedItem() + " Min";
+					s2MaxHeader = view.getTownList2().getSelectedItem() + " Max";
+					
+				} else if (selected.equals("3 Provinces")) {
+					args[0] = view.getThreeProvinceList1().getSelectedItem().toString();
+					args[1] = view.getThreeProvinceList2().getSelectedItem().toString();
+					args[2] = view.getThreeProvinceList3().getSelectedItem().toString();
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) 
+						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+					query = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
+					
+					s1AvgHeader = view.getThreeProvinceList1().getSelectedItem() + " Average";
+					s2AvgHeader = view.getThreeProvinceList2().getSelectedItem() + " Average";
+					s3AvgHeader = view.getThreeProvinceList3().getSelectedItem() + " Average";
+					s1STDHeader = view.getThreeProvinceList1().getSelectedItem() + " Standard Deviation";
+					s2STDHeader = view.getThreeProvinceList2().getSelectedItem() + " Standard Deviation";
+					s3STDHeader = view.getThreeProvinceList3().getSelectedItem() + " Standard Deviation";
+					s1MinHeader = view.getThreeProvinceList1().getSelectedItem() + " Min";
+					s1MaxHeader = view.getThreeProvinceList1().getSelectedItem() + " Max";
+					s2MinHeader = view.getThreeProvinceList2().getSelectedItem() + " Min";
+					s2MaxHeader = view.getThreeProvinceList2().getSelectedItem() + " Max";
+					s3MinHeader = view.getThreeProvinceList3().getSelectedItem() + " Min";
+					s3MaxHeader = view.getThreeProvinceList3().getSelectedItem() + " Max";
+					
+				} else {
+					args[0] = view.getThreeTownList1().getSelectedItem().toString();
+					args[1] = view.getThreeTownList2().getSelectedItem().toString();
+					args[2] = view.getThreeTownList3().getSelectedItem().toString();
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) 
+						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+					query = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
+					
+					s1AvgHeader = view.getThreeTownList1().getSelectedItem() + " Average";
+					s2AvgHeader = view.getThreeTownList2().getSelectedItem() + " Average";
+					s3AvgHeader = view.getThreeTownList3().getSelectedItem() + " Average";
+					s1STDHeader = view.getThreeTownList1().getSelectedItem() + " Standard Deviation";
+					s2STDHeader = view.getThreeTownList2().getSelectedItem() + " Standard Deviation";
+					s3STDHeader = view.getThreeTownList3().getSelectedItem() + " Standard Deviation";
+					s1MinHeader = view.getThreeTownList1().getSelectedItem() + " Min";
+					s1MaxHeader = view.getThreeTownList1().getSelectedItem() + " Max";
+					s2MinHeader = view.getThreeTownList2().getSelectedItem() + " Min";
+					s2MaxHeader = view.getThreeTownList2().getSelectedItem() + " Max";
+					s3MinHeader = view.getThreeTownList3().getSelectedItem() + " Min";
+					s3MaxHeader = view.getThreeTownList3().getSelectedItem() + " Max";
+				}
+				
+				model.loadData(query);
+				result = model.getData();
+				DefaultTableModel tableModel = new DefaultTableModel();
+				try {
+					if (selected.equals("2 Provinces") || selected.equals("2 Towns")) {
+						tableModel.setColumnIdentifiers(new String [] {s1AvgHeader, s2AvgHeader, s1STDHeader, s2STDHeader,
+								s1MinHeader, s1MaxHeader, s2MinHeader, s2MaxHeader});
+						
+						while (result.next()) {
+							 tableModel.addRow(new Object [] {
+						               result.getString(s1AvgHeader), result.getString(s2AvgHeader), 
+						               result.getString(s1STDHeader), result.getString(s2STDHeader),
+						               result.getString(s1MinHeader), result.getString(s1MaxHeader), 
+						               result.getString(s2MinHeader), result.getString(s2MaxHeader)});
+						}
+					} else {
+						tableModel.setColumnIdentifiers(new String [] {s1AvgHeader, s2AvgHeader, s3AvgHeader, 
+								s1STDHeader, s2STDHeader, s3STDHeader,
+								s1MinHeader, s1MaxHeader,
+								s2MinHeader, s2MaxHeader,
+								s3MinHeader, s3MaxHeader});
+						
+						while (result.next()) {
+							 tableModel.addRow(new Object [] {
+									   result.getString(s1AvgHeader), result.getString(s2AvgHeader), result.getString(s3AvgHeader), 
+						               result.getString(s1STDHeader), result.getString(s2STDHeader), result.getString(s3STDHeader),
+						               result.getString(s1MinHeader), result.getString(s1MaxHeader), 
+						               result.getString(s2MinHeader), result.getString(s2MaxHeader),
+						               result.getString(s3MinHeader), result.getString(s3MaxHeader)});
+						}
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				
+				view.getSummaryDataTable().setModel(tableModel);
+				for (int i = 0; i < view.getSummaryDataTable().getColumnModel().getColumnCount(); i++) {
+					view.getSummaryDataTable().getColumnModel().getColumn(i).setPreferredWidth(250);
+				}
+				view.getTablePanel().revalidate();
+				view.getTablePanel().repaint();
+				view.getCardLayout3().show(view.getTablePanel(), "Summary Data");
+				
+				System.out.println("-------------------------------------------------");
+				System.out.println(query);
+				System.out.println(s1MaxHeader);
+				System.out.println(result.toString());
+				System.out.println(startDate);
+				System.out.println(endDate);
+				System.out.println(args[0] + " " + args[1]);
+				System.out.println("-------------------------------------------------");
 			}
 		});
 		

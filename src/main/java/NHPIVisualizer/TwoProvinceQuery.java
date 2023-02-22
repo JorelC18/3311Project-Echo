@@ -15,9 +15,11 @@ public class TwoProvinceQuery implements Query {
 	}
 	
 	public String getQuery() {
-		return "SELECT * FROM echodata.echodata WHERE (GEO=" + "\"" + province1 + "\"" + 
-				" OR GEO=" + "\"" + province2 + "\")" + " AND (REF_DATE <= " + "\"" + 
-				endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
+		System.out.println("SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + province1 + "%\"" + " OR GEO LIKE \"%" + province2 + "%\")" 
+				+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");");
+		
+		return "SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + province1 + "%\"" + " OR GEO LIKE \"%" + province2 + "%\")" 
+		+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
 	}
 	
 }
