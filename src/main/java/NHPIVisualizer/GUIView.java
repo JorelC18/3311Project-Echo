@@ -34,6 +34,8 @@ public class GUIView extends JFrame {
 	private JPanel geographicalParametersPTSubPanel;
 	private JPanel geographicalParametersProvinceSubPanel;
 	private JPanel geographicalParametersTownSubPanel;
+	private JPanel geographicalParameters3ProvinceSubPanel;
+	private JPanel geographicalParameters3TownSubPanel;
 	private JPanel timeParametersPanel;
 	private JPanel timeParametersMainSubPanel;
 	private JPanel timeParametersBMYSubPanel;
@@ -68,8 +70,15 @@ public class GUIView extends JFrame {
     public JComboBox<String> geographicalParametersComboBox;
     public JComboBox<String> provinceList1;
     public JComboBox<String> provinceList2;
+    public JComboBox<String> threeProvinceList1;
+    public JComboBox<String> threeProvinceList2;
+    public JComboBox<String> threeProvinceList3;
     public JComboBox<String> townList1;
     public JComboBox<String> townList2;
+    public JComboBox<String> townList3;
+    public JComboBox<String> threeTownList1;
+    public JComboBox<String> threeTownList2;
+    public JComboBox<String> threeTownList3;
     public JComboBox<String> timeGranularityComboBox;
     public JComboBox<String> startMonthComboBox;
     public JComboBox<String> startYearComboBox;
@@ -114,6 +123,8 @@ public class GUIView extends JFrame {
 		geographicalParametersPTSubPanel = new JPanel();
 		geographicalParametersProvinceSubPanel = new JPanel();
 		geographicalParametersTownSubPanel = new JPanel();
+		geographicalParameters3ProvinceSubPanel = new JPanel();
+		geographicalParameters3TownSubPanel = new JPanel();
 		timeParametersPanel = new JPanel();
 		timeParametersPanel.setPreferredSize(new Dimension(500, 500));
 		timeParametersMainSubPanel = new JPanel();
@@ -219,8 +230,15 @@ public class GUIView extends JFrame {
 		geographicalParametersComboBox = new JComboBox<String>(geographicalParameters);
 		provinceList1 = new JComboBox<String>(provincesNames);
         provinceList2 = new JComboBox<String>(provincesNames);
+        threeProvinceList1 = new JComboBox<String>(provincesNames);
+        threeProvinceList2 = new JComboBox<String>(provincesNames);
+        threeProvinceList3 = new JComboBox<String>(provincesNames);
         townList1 = new JComboBox<String>(townNames);
         townList2 = new JComboBox<String>(townNames);
+        townList3 = new JComboBox<String>(townNames);
+        threeTownList1 = new JComboBox<String>(townNames);
+        threeTownList2 = new JComboBox<String>(townNames);
+        threeTownList3 = new JComboBox<String>(townNames);
         timeGranularityComboBox = new JComboBox<String>(timeGranularity);
         startMonthComboBox = new JComboBox<String>(months);
 		startYearComboBox = new JComboBox<String>(years);
@@ -237,7 +255,7 @@ public class GUIView extends JFrame {
 		loadRawDataButton = new JButton("Load Raw Data");
 		loadSummaryDataButton = new JButton("Load Summary Data");
 		loadChartButton = new JButton("Load Chart (Separate Window)");
-		resetButton = new JButton("Reset");
+		resetButton = new JButton("Reset Time-Series");
 		
 		// Setting up layouts for panels:
 		
@@ -250,6 +268,8 @@ public class GUIView extends JFrame {
 		geographicalParametersPTSubPanel.setLayout(cardLayout1);
 		geographicalParametersProvinceSubPanel.setLayout(new FlowLayout());
 		geographicalParametersTownSubPanel.setLayout(new FlowLayout());
+		geographicalParameters3ProvinceSubPanel.setLayout(new FlowLayout());
+		geographicalParameters3TownSubPanel.setLayout(new FlowLayout());
 		timeParametersPanel.setLayout(new BorderLayout());
 		timeParametersMainSubPanel.setLayout(new FlowLayout());
 		timeParametersBMYSubPanel.setLayout(cardLayout2);
@@ -269,13 +289,30 @@ public class GUIView extends JFrame {
 		// Geographical Parameters Panel:
 		geographicalParametersMainSubPanel.add(geographicalParametersLabel, BorderLayout.WEST);
 		geographicalParametersMainSubPanel.add(geographicalParametersComboBox, BorderLayout.EAST);
-		geographicalParametersPanel.add(geographicalParametersMainSubPanel, FlowLayout.LEFT);
+		
 		geographicalParametersProvinceSubPanel.add(provinceList1, FlowLayout.LEFT);
 		geographicalParametersProvinceSubPanel.add(provinceList2);
+		
 		geographicalParametersTownSubPanel.add(townList1, FlowLayout.LEFT);
 		geographicalParametersTownSubPanel.add(townList2);
+		
+		geographicalParameters3ProvinceSubPanel.add(threeProvinceList1, FlowLayout.LEFT);
+		geographicalParameters3ProvinceSubPanel.add(threeProvinceList2);
+		geographicalParameters3ProvinceSubPanel.add(threeProvinceList3);
+		
+		geographicalParameters3ProvinceSubPanel.add(threeProvinceList1, FlowLayout.LEFT);
+		geographicalParameters3ProvinceSubPanel.add(threeProvinceList2);
+		geographicalParameters3ProvinceSubPanel.add(threeProvinceList3);
+		
+		geographicalParameters3TownSubPanel.add(threeTownList1, FlowLayout.LEFT);
+		geographicalParameters3TownSubPanel.add(threeTownList2);
+		geographicalParameters3TownSubPanel.add(threeTownList3);
+		
 		geographicalParametersPTSubPanel.add(geographicalParametersProvinceSubPanel, "Province");
 		geographicalParametersPTSubPanel.add(geographicalParametersTownSubPanel, "Town");
+		geographicalParametersPTSubPanel.add(geographicalParameters3ProvinceSubPanel, "3 Provinces");
+		geographicalParametersPTSubPanel.add(geographicalParameters3TownSubPanel, "3 Towns");
+		geographicalParametersPanel.add(geographicalParametersMainSubPanel, FlowLayout.LEFT);
 		geographicalParametersPanel.add(geographicalParametersPTSubPanel);
 		frame.add(geographicalParametersPanel, BorderLayout.NORTH);
 		
@@ -349,10 +386,10 @@ public class GUIView extends JFrame {
 		buttonsPanel.add(chartTypeLabel, FlowLayout.LEFT);
 		buttonsPanel.add(chartTypesComboBox);
 		buttonsPanel.add(addTimeSeriesButton);
+		buttonsPanel.add(resetButton);
 		buttonsPanel.add(loadRawDataButton);
 		buttonsPanel.add(loadSummaryDataButton);
 		buttonsPanel.add(loadChartButton);
-		//buttonsPanel.add(resetButton);
 		
 		frame.add(buttonsPanel, BorderLayout.SOUTH);
 		
@@ -854,8 +891,61 @@ public class GUIView extends JFrame {
 		return summaryDataScrollPane;
 	}
 
+	
 
 
+
+	public JPanel getGeographicalParameters3ProvinceSubPanel() {
+		return geographicalParameters3ProvinceSubPanel;
+	}
+
+
+
+	public JPanel getGeographicalParameters3TownSubPanel() {
+		return geographicalParameters3TownSubPanel;
+	}
+
+
+
+	public JComboBox<String> getThreeProvinceList1() {
+		return threeProvinceList1;
+	}
+
+
+
+	public JComboBox<String> getThreeProvinceList2() {
+		return threeProvinceList2;
+	}
+
+
+
+	public JComboBox<String> getThreeProvinceList3() {
+		return threeProvinceList3;
+	}
+
+
+
+	public JComboBox<String> getTownList3() {
+		return townList3;
+	}
+
+
+
+	public JComboBox<String> getThreeTownList1() {
+		return threeTownList1;
+	}
+
+
+
+	public JComboBox<String> getThreeTownList2() {
+		return threeTownList2;
+	}
+
+
+
+	public JComboBox<String> getThreeTownList3() {
+		return threeTownList3;
+	}
 
 
 
