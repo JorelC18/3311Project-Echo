@@ -3,7 +3,8 @@ package NHPIVisualizer;
 public class MainTest {
 
 	public static void main(String[] args) {
-		GUIView gui = new GUIView();
+		GUIView view = new GUIView();
+		GUIController controller = new GUIController(view);
 	}
 
 }

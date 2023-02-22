@@ -22,7 +22,6 @@ public class GUIModel {
 		
 		try {
 			this.connection = DriverManager.getConnection(url, username, password);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

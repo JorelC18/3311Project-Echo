@@ -46,6 +46,11 @@ public class GUIView extends JFrame {
 	private JPanel overallPanel;
 	private JPanel startNestedPanel;
 	
+	// Card Layouts
+	private CardLayout cardLayout1;
+	private CardLayout cardLayout2;
+	private CardLayout cardLayout3;
+	
 	// Labels
 	private JLabel geographicalParametersLabel;
 	private JLabel startMonthLabel;
@@ -60,21 +65,21 @@ public class GUIView extends JFrame {
     private JLabel chartTypeLabel;
     
     // Combo boxes
-    public static JComboBox<String> geographicalParametersComboBox;
-    public static JComboBox<String> provinceList1;
-    public static JComboBox<String> provinceList2;
-    public static JComboBox<String> townList1;
-    public static JComboBox<String> townList2;
-    public static JComboBox<String> timeGranularityComboBox;
-    public static JComboBox<String> startMonthComboBox;
-    public static JComboBox<String> startYearComboBox;
-    public static JComboBox<String> endMonthComboBox;
-    public static JComboBox<String> endYearComboBox;
-    public static JComboBox<String> startMonthComboBox2;
-    public static JComboBox<String> startYearComboBox2;
-    public static JComboBox<String> endMonthComboBox2;
-    public static JComboBox<String> endYearComboBox2;
-    public static JComboBox<String> chartTypesComboBox;
+    public JComboBox<String> geographicalParametersComboBox;
+    public JComboBox<String> provinceList1;
+    public JComboBox<String> provinceList2;
+    public JComboBox<String> townList1;
+    public JComboBox<String> townList2;
+    public JComboBox<String> timeGranularityComboBox;
+    public JComboBox<String> startMonthComboBox;
+    public JComboBox<String> startYearComboBox;
+    public JComboBox<String> endMonthComboBox;
+    public JComboBox<String> endYearComboBox;
+    public JComboBox<String> startMonthComboBox2;
+    public JComboBox<String> startYearComboBox2;
+    public JComboBox<String> endMonthComboBox2;
+    public JComboBox<String> endYearComboBox2;
+    public JComboBox<String> chartTypesComboBox;
     
     // Buttons
     private JButton addTimeSeriesButton;
@@ -88,7 +93,8 @@ public class GUIView extends JFrame {
     private JTable summaryDataTable;
     
     // Scroll Panes
-    private JScrollPane scrollPane;
+    private JScrollPane rawDataScrollPane;
+    private JScrollPane summaryDataScrollPane;
     
     // To initialize all GUI components. Also to set up layout
     public GUIView() {
@@ -235,9 +241,9 @@ public class GUIView extends JFrame {
 		
 		// Setting up layouts for panels:
 		
-		CardLayout cardLayout1 = new CardLayout();
-		CardLayout cardLayout2 = new CardLayout();
-		CardLayout cardLayout3 = new CardLayout();
+		cardLayout1 = new CardLayout();
+		cardLayout2 = new CardLayout();
+		cardLayout3 = new CardLayout();
 		
 		geographicalParametersPanel.setLayout(new FlowLayout());
 		geographicalParametersMainSubPanel.setLayout(new BorderLayout());
@@ -309,11 +315,34 @@ public class GUIView extends JFrame {
 		
 		// Table Panel:
 		
+		DefaultTableModel model = new DefaultTableModel();
+		rawDataTable = new JTable(new Object[][]{}, new String [] {"REF_DATE", "GEO", "NHPIs", "VALUE"});
+		rawDataScrollPane = new JScrollPane(rawDataTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+				);
+		rawDataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
+		String p1AvgHeader = provinceList1.getSelectedItem() + " Average";
+		String p2AvgHeader = provinceList2.getSelectedItem() + " Average";;
+		String p1STDHeader = provinceList1.getSelectedItem() + " Standard Deviation";
+		String p2STDHeader = provinceList2.getSelectedItem() + " Standard Deviation";
+		String p1MinHeader = provinceList1.getSelectedItem() + " Min";
+		String p1MaxHeader = provinceList1.getSelectedItem() + " Max";
+		String p2MinHeader = provinceList2.getSelectedItem() + " Min";
+		String p2MaxHeader = provinceList2.getSelectedItem() + " Max";
+		summaryDataTable = new JTable(new Object[][]{}, new String [] {p1AvgHeader, p2AvgHeader, 
+				p1STDHeader, p2STDHeader, p1MinHeader, 
+				p1MaxHeader, p2MinHeader, p2MaxHeader}
+				);
+		summaryDataScrollPane = new JScrollPane(summaryDataTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+				);
+		summaryDataTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
-		scrollPane = new JScrollPane();
-		frame.add(scrollPane, BorderLayout.EAST);
+		tablePanel.add(rawDataScrollPane, "Raw Data");
+		tablePanel.add(summaryDataScrollPane, "Summary Data");
 		
+		frame.add(tablePanel, BorderLayout.EAST);
 		
 		// Buttons Panel:
 		
@@ -323,7 +352,7 @@ public class GUIView extends JFrame {
 		buttonsPanel.add(loadRawDataButton);
 		buttonsPanel.add(loadSummaryDataButton);
 		buttonsPanel.add(loadChartButton);
-		buttonsPanel.add(resetButton);
+		//buttonsPanel.add(resetButton);
 		
 		frame.add(buttonsPanel, BorderLayout.SOUTH);
 		
@@ -332,8 +361,505 @@ public class GUIView extends JFrame {
 		frame.pack();
 		
     }
-    
-    public void displayData(ResultSet data) {
+
+
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+
+
+
+
+
+	public JPanel getGeographicalParametersPanel() {
+		return geographicalParametersPanel;
+	}
+
+
+
+
+
+
+	public JPanel getGeographicalParametersMainSubPanel() {
+		return geographicalParametersMainSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getGeographicalParametersPTSubPanel() {
+		return geographicalParametersPTSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getGeographicalParametersProvinceSubPanel() {
+		return geographicalParametersProvinceSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getGeographicalParametersTownSubPanel() {
+		return geographicalParametersTownSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTimeParametersPanel() {
+		return timeParametersPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTimeParametersMainSubPanel() {
+		return timeParametersMainSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTimeParametersBMYSubPanel() {
+		return timeParametersBMYSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTimeParametersBothSubPanel() {
+		return timeParametersBothSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTimeParametersMonthSubPanel() {
+		return timeParametersMonthSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTimeParametersYearSubPanel() {
+		return timeParametersYearSubPanel;
+	}
+
+
+
+
+
+
+	public JPanel getTablePanel() {
+		return tablePanel;
+	}
+
+
+
+
+
+
+	public JPanel getLoadChartPanel() {
+		return loadChartPanel;
+	}
+
+
+
+
+
+
+	public JPanel getButtonsPanel() {
+		return buttonsPanel;
+	}
+
+
+
+
+
+
+	public JPanel getOverallPanel() {
+		return overallPanel;
+	}
+
+
+
+
+
+
+	public JPanel getStartNestedPanel() {
+		return startNestedPanel;
+	}
+
+
+
+
+
+
+	public CardLayout getCardLayout1() {
+		return cardLayout1;
+	}
+
+
+
+
+
+
+	public CardLayout getCardLayout2() {
+		return cardLayout2;
+	}
+
+
+
+
+
+
+	public CardLayout getCardLayout3() {
+		return cardLayout3;
+	}
+
+
+
+
+
+
+	public JLabel getGeographicalParametersLabel() {
+		return geographicalParametersLabel;
+	}
+
+
+
+
+
+
+	public JLabel getStartMonthLabel() {
+		return startMonthLabel;
+	}
+
+
+
+
+
+
+	public JLabel getStartYearLabel() {
+		return startYearLabel;
+	}
+
+
+
+
+
+
+	public JLabel getEndMonthLabel() {
+		return endMonthLabel;
+	}
+
+
+
+
+
+
+	public JLabel getEndYearLabel() {
+		return endYearLabel;
+	}
+
+
+
+
+
+
+	public JLabel getStartMonthLabel2() {
+		return startMonthLabel2;
+	}
+
+
+
+
+
+
+	public JLabel getStartYearLabel2() {
+		return startYearLabel2;
+	}
+
+
+
+
+
+
+	public JLabel getEndMonthLabel2() {
+		return endMonthLabel2;
+	}
+
+
+
+
+
+
+	public JLabel getEndYearLabel2() {
+		return endYearLabel2;
+	}
+
+
+
+
+
+
+	public JLabel getTimeGranularityLabel() {
+		return timeGranularityLabel;
+	}
+
+
+
+
+
+
+	public JLabel getChartTypeLabel() {
+		return chartTypeLabel;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getGeographicalParametersComboBox() {
+		return geographicalParametersComboBox;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getProvinceList1() {
+		return provinceList1;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getProvinceList2() {
+		return provinceList2;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getTownList1() {
+		return townList1;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getTownList2() {
+		return townList2;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getTimeGranularityComboBox() {
+		return timeGranularityComboBox;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getStartMonthComboBox() {
+		return startMonthComboBox;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getStartYearComboBox() {
+		return startYearComboBox;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getEndMonthComboBox() {
+		return endMonthComboBox;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getEndYearComboBox() {
+		return endYearComboBox;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getStartMonthComboBox2() {
+		return startMonthComboBox2;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getStartYearComboBox2() {
+		return startYearComboBox2;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getEndMonthComboBox2() {
+		return endMonthComboBox2;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getEndYearComboBox2() {
+		return endYearComboBox2;
+	}
+
+
+
+
+
+
+	public JComboBox<String> getChartTypesComboBox() {
+		return chartTypesComboBox;
+	}
+
+
+
+
+
+
+	public JButton getAddTimeSeriesButton() {
+		return addTimeSeriesButton;
+	}
+
+
+
+
+
+
+	public JButton getLoadRawDataButton() {
+		return loadRawDataButton;
+	}
+
+
+
+
+
+
+	public JButton getLoadSummaryDataButton() {
+		return loadSummaryDataButton;
+	}
+
+
+
+
+
+
+	public JButton getLoadChartButton() {
+		return loadChartButton;
+	}
+
+
+
+
+
+
+	public JButton getResetButton() {
+		return resetButton;
+	}
+
+
+
+
+
+
+	public JTable getRawDataTable() {
+		return rawDataTable;
+	}
+
+
+
+
+
+
+	public JTable getSummaryDataTable() {
+		return summaryDataTable;
+	}
+
+
+
+
+
+
+	public JScrollPane getRawDataScrollPane() {
+		return rawDataScrollPane;
+	}
+
+
+
+
+
+
+	public JScrollPane getSummaryDataScrollPane() {
+		return summaryDataScrollPane;
+	}
+
+
+
+
+
+
+	public void displayData(ResultSet data) {
     	
     }
     
