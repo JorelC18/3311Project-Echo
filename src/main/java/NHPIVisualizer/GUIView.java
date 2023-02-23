@@ -88,6 +88,7 @@ public class GUIView extends JFrame {
     public JComboBox<String> startYearComboBox2;
     public JComboBox<String> endMonthComboBox2;
     public JComboBox<String> endYearComboBox2;
+    public JComboBox<String> yearComboBox;
     public JComboBox<String> chartTypesComboBox;
     
     // Buttons
@@ -224,7 +225,7 @@ public class GUIView extends JFrame {
 		}
 		
 		// Chart Types:
-		String[] chartTypes = {"Line Chart", "Bar Chart", "Scatter Chart"};
+		String[] chartTypes = {"Line Chart", "Bar Chart"};
 		
 		// JComboBoxes:
 		geographicalParametersComboBox = new JComboBox<String>(geographicalParameters);
@@ -335,6 +336,7 @@ public class GUIView extends JFrame {
 		timeParametersMonthSubPanel.add(startMonthComboBox);
 		timeParametersMonthSubPanel.add(endMonthLabel);
 		timeParametersMonthSubPanel.add(endMonthComboBox);
+		timeParametersMonthSubPanel.add(yearComboBox);
 		
 		timeParametersYearSubPanel.add(startYearLabel, FlowLayout.LEFT);
 		timeParametersYearSubPanel.add(startYearComboBox);

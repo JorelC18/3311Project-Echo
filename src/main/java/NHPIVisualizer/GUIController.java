@@ -22,6 +22,9 @@ public class GUIController {
 	
 	private GUIView view;
 	//private GUIModel model;
+	private ResultSet result;
+	private ResultSet result2;
+	
 	
 	public GUIController(final GUIView view, final GUIModel model) {
 		
@@ -77,7 +80,6 @@ public class GUIController {
 				String startDate = "";
 				String endDate = "";
 				Query query = null;
-				ResultSet result;
 				
 				if (checkBothMonthlyAndYearly(selected2)) {
 					endDate = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
@@ -270,19 +272,19 @@ public class GUIController {
 				}
 				
 				model.loadData(query);
-				result = model.getData();
+				result2 = model.getData();
 				DefaultTableModel tableModel = new DefaultTableModel();
 				try {
 					if (selected.equals("2 Provinces") || selected.equals("2 Towns")) {
 						tableModel.setColumnIdentifiers(new String [] {s1AvgHeader, s2AvgHeader, s1STDHeader, s2STDHeader,
 								s1MinHeader, s1MaxHeader, s2MinHeader, s2MaxHeader});
 						
-						while (result.next()) {
+						while (result2.next()) {
 							 tableModel.addRow(new Object [] {
-						               result.getString(s1AvgHeader), result.getString(s2AvgHeader), 
-						               result.getString(s1STDHeader), result.getString(s2STDHeader),
-						               result.getString(s1MinHeader), result.getString(s1MaxHeader), 
-						               result.getString(s2MinHeader), result.getString(s2MaxHeader)});
+						               result2.getString(s1AvgHeader), result2.getString(s2AvgHeader), 
+						               result2.getString(s1STDHeader), result2.getString(s2STDHeader),
+						               result2.getString(s1MinHeader), result2.getString(s1MaxHeader), 
+						               result2.getString(s2MinHeader), result2.getString(s2MaxHeader)});
 						}
 					} else {
 						tableModel.setColumnIdentifiers(new String [] {s1AvgHeader, s2AvgHeader, s3AvgHeader, 
@@ -291,13 +293,13 @@ public class GUIController {
 								s2MinHeader, s2MaxHeader,
 								s3MinHeader, s3MaxHeader});
 						
-						while (result.next()) {
+						while (result2.next()) {
 							 tableModel.addRow(new Object [] {
-									   result.getString(s1AvgHeader), result.getString(s2AvgHeader), result.getString(s3AvgHeader), 
-						               result.getString(s1STDHeader), result.getString(s2STDHeader), result.getString(s3STDHeader),
-						               result.getString(s1MinHeader), result.getString(s1MaxHeader), 
-						               result.getString(s2MinHeader), result.getString(s2MaxHeader),
-						               result.getString(s3MinHeader), result.getString(s3MaxHeader)});
+									   result2.getString(s1AvgHeader), result2.getString(s2AvgHeader), result2.getString(s3AvgHeader), 
+						               result2.getString(s1STDHeader), result2.getString(s2STDHeader), result2.getString(s3STDHeader),
+						               result2.getString(s1MinHeader), result2.getString(s1MaxHeader), 
+						               result2.getString(s2MinHeader), result2.getString(s2MaxHeader),
+						               result2.getString(s3MinHeader), result2.getString(s3MaxHeader)});
 						}
 					}
 				} catch (Exception ex) {
@@ -315,7 +317,7 @@ public class GUIController {
 				System.out.println("-------------------------------------------------");
 				System.out.println(query);
 				System.out.println(s1MaxHeader);
-				System.out.println(result.toString());
+				System.out.println(result2.toString());
 				System.out.println(startDate);
 				System.out.println(endDate);
 				System.out.println(args[0] + " " + args[1]);
@@ -328,6 +330,47 @@ public class GUIController {
 		loadChartButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				
+				ChartContext chartContext = new ChartContext();
+				
+				if (view.getChartTypesComboBox().getSelectedItem().equals("Line Chart")) {
+					
+					chartContext.setChartStrategy(new LineChartStrategy());
+					
+					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces") || 
+							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
+						
+						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
+							chartContext.drawChartFor2Series(result, view.getProvinceList1().getSelectedItem().toString(),
+									view.getProvinceList2().getSelectedItem().toString(), "Province");
+						} else {
+							chartContext.drawChartFor2Series(result, view.getTownList1().getSelectedItem().toString(),
+									view.getTownList2().getSelectedItem().toString(), "Town");
+						}
+						
+					} else {
+						//chartContext.drawChartFor3Series(rs);
+						
+					}
+					
+				} else {
+					
+					chartContext.setChartStrategy(new BarChartStrategy());
+					
+					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces") || 
+							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
+						
+						//chartContext.drawChartFor2Series(rs);
+						
+					} else {
+						
+						//chartContext.drawChartFor3Series(rs);
+						
+					}
+					
+				}
+				
+				
 				
 				
 			}
@@ -375,11 +418,11 @@ public class GUIController {
 		return false;
 	}
 	
-	private boolean checkYearly(String selected) {
-		if (selected.equals("Yearly")) 
-			return true;
-		return false;
-	}
-	
+//	private boolean checkYearly(String selected) {
+//		if (selected.equals("Yearly")) 
+//			return true;
+//		return false;
+//	}
+//	
 	
 }
