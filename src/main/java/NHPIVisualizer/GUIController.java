@@ -24,7 +24,7 @@ public class GUIController {
 	//private GUIModel model;
 	private ResultSet result;
 	private ResultSet result2;
-	
+	private Query query;
 	
 	public GUIController(final GUIView view, final GUIModel model) {
 		
@@ -79,7 +79,7 @@ public class GUIController {
 				String[] args = new String[3];
 				String startDate = "";
 				String endDate = "";
-				Query query = null;
+				
 				
 				if (checkBothMonthlyAndYearly(selected2)) {
 					endDate = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
@@ -178,7 +178,7 @@ public class GUIController {
 				String s3MaxHeader = "";
 				String startDate = "";
 				String endDate = "";
-				Query query = null;
+				Query query2;
 				ResultSet result;
 				
 				if (checkBothMonthlyAndYearly(selected2)) {
@@ -201,7 +201,7 @@ public class GUIController {
 					args[1] = view.getProvinceList2().getSelectedItem().toString();
 					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) 
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
-					query = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
+					query2 = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
 					
 					s1AvgHeader = view.getProvinceList1().getSelectedItem() + " Average";
 					s2AvgHeader = view.getProvinceList2().getSelectedItem() + " Average";
@@ -217,7 +217,7 @@ public class GUIController {
 					args[1] = view.getTownList2().getSelectedItem().toString();
 					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) 
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
-					query = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
+					query2 = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
 					
 					s1AvgHeader = view.getTownList1().getSelectedItem() + " Average";
 					s2AvgHeader = view.getTownList2().getSelectedItem() + " Average";
@@ -234,7 +234,7 @@ public class GUIController {
 					args[2] = view.getThreeProvinceList3().getSelectedItem().toString();
 					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) 
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
-					query = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
+					query2 = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
 					
 					s1AvgHeader = view.getThreeProvinceList1().getSelectedItem() + " Average";
 					s2AvgHeader = view.getThreeProvinceList2().getSelectedItem() + " Average";
@@ -255,7 +255,7 @@ public class GUIController {
 					args[2] = view.getThreeTownList3().getSelectedItem().toString();
 					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) 
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
-					query = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
+					query2 = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
 					
 					s1AvgHeader = view.getThreeTownList1().getSelectedItem() + " Average";
 					s2AvgHeader = view.getThreeTownList2().getSelectedItem() + " Average";
@@ -271,7 +271,7 @@ public class GUIController {
 					s3MaxHeader = view.getThreeTownList3().getSelectedItem() + " Max";
 				}
 				
-				model.loadData(query);
+				model.loadData(query2);
 				result2 = model.getData();
 				DefaultTableModel tableModel = new DefaultTableModel();
 				try {
@@ -332,6 +332,8 @@ public class GUIController {
 			public void actionPerformed(ActionEvent e) {
 				
 				ChartContext chartContext = new ChartContext();
+				model.loadData(query);
+				ResultSet rs = model.getData();
 				
 				if (view.getChartTypesComboBox().getSelectedItem().equals("Line Chart")) {
 					
@@ -341,15 +343,25 @@ public class GUIController {
 							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
 						
 						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
-							chartContext.drawChartFor2Series(result, view.getProvinceList1().getSelectedItem().toString(),
-									view.getProvinceList2().getSelectedItem().toString(), "Province");
+							chartContext.drawChartFor2Series(rs, view.getProvinceList1().getSelectedItem().toString(),
+									view.getProvinceList2().getSelectedItem().toString());
 						} else {
-							chartContext.drawChartFor2Series(result, view.getTownList1().getSelectedItem().toString(),
-									view.getTownList2().getSelectedItem().toString(), "Town");
+							chartContext.drawChartFor2Series(rs, view.getTownList1().getSelectedItem().toString(),
+									view.getTownList2().getSelectedItem().toString());
 						}
 						
 					} else {
-						//chartContext.drawChartFor3Series(rs);
+						
+						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces")) {
+							chartContext.drawChartFor3Series(rs, view.getThreeProvinceList1().getSelectedItem().toString(),
+									view.getThreeProvinceList2().getSelectedItem().toString(),
+									view.getThreeProvinceList3().getSelectedItem().toString());
+						} else {
+							chartContext.drawChartFor3Series(rs, view.getThreeTownList1().getSelectedItem().toString(),
+									view.getThreeTownList2().getSelectedItem().toString(),
+									view.getThreeTownList3().getSelectedItem().toString());
+						}
+						
 						
 					}
 					

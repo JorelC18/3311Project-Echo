@@ -10,12 +10,12 @@ public class ChartContext {
 		this.chartStrategy = chartStrategy;
 	}
 	
-	public void drawChartFor2Series(ResultSet result, String selection1, String selection2, String type) {
-		chartStrategy.drawChartFor2Series(result, selection1, selection2, type);
+	public void drawChartFor2Series(ResultSet result, String selection1, String selection2) {
+		chartStrategy.drawChartFor2Series(result, selection1, selection2);
 	}
 	
-	public void drawChartFor3Series(ResultSet result, String selection1, String selection2, String selection3, String type) {
-		chartStrategy.drawChartFor3Series(result, selection1, selection2, selection3, type);
+	public void drawChartFor3Series(ResultSet result, String selection1, String selection2, String selection3) {
+		chartStrategy.drawChartFor3Series(result, selection1, selection2, selection3);
 	}
 	
 }

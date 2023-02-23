@@ -63,6 +63,7 @@ public class GUIView extends JFrame {
 	private JLabel startYearLabel2;
     private JLabel endMonthLabel2;
     private JLabel endYearLabel2;
+    private JLabel endYearLabel3;
     private JLabel timeGranularityLabel;
     private JLabel chartTypeLabel;
     
@@ -150,6 +151,7 @@ public class GUIView extends JFrame {
 		startYearLabel2 = new JLabel("Start Year:");
 		endMonthLabel2 = new JLabel("End Month:");
 		endYearLabel2 = new JLabel("End Year:");
+		endYearLabel3 = new JLabel("Year:");
 		chartTypeLabel = new JLabel("Chart Type:");
 		
 		/*
@@ -249,6 +251,7 @@ public class GUIView extends JFrame {
 		startYearComboBox2 = new JComboBox<String>(years);
 		endMonthComboBox2 = new JComboBox<String>(months);
 		endYearComboBox2 = new JComboBox<String>(years);
+		yearComboBox = new JComboBox<String>(years);
 		chartTypesComboBox = new JComboBox<String>(chartTypes);
 		
 		// JButtons:
@@ -336,6 +339,7 @@ public class GUIView extends JFrame {
 		timeParametersMonthSubPanel.add(startMonthComboBox);
 		timeParametersMonthSubPanel.add(endMonthLabel);
 		timeParametersMonthSubPanel.add(endMonthComboBox);
+		timeParametersMonthSubPanel.add(endYearLabel3);
 		timeParametersMonthSubPanel.add(yearComboBox);
 		
 		timeParametersYearSubPanel.add(startYearLabel, FlowLayout.LEFT);
