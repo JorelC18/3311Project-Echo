@@ -64,6 +64,8 @@ public class LineChartStrategy implements ChartStrategy {
 			renderer.setSeriesPaint(0, Color.RED);
 			renderer.setSeriesPaint(1, Color.BLUE);
 			renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+			renderer.setSeriesShapesVisible(0, false);
+			renderer.setSeriesShapesVisible(1, false);
 
 			plot.setRenderer(renderer);
 			plot.setBackgroundPaint(Color.white);
@@ -73,6 +75,8 @@ public class LineChartStrategy implements ChartStrategy {
 
 			plot.setDomainGridlinesVisible(true);
 			plot.setDomainGridlinePaint(Color.BLACK);
+			
+			
 			
 			ChartPanel chartPanel = new ChartPanel(chart);
 			chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -138,6 +142,9 @@ public class LineChartStrategy implements ChartStrategy {
 			renderer.setSeriesPaint(1, Color.BLUE);
 			renderer.setSeriesPaint(2, Color.GREEN);
 			renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+			renderer.setSeriesShapesVisible(0, false);
+			renderer.setSeriesShapesVisible(1, false);
+			renderer.setSeriesShapesVisible(2, false);
 
 
 			plot.setRenderer(renderer);

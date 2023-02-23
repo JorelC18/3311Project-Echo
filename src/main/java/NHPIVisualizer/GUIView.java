@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.sql.ResultSet;
 import java.util.Vector;
 
@@ -15,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /*
  * View part of MVC architecture.
@@ -25,6 +23,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class GUIView extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Main frame
 	private JFrame frame;
 	
@@ -212,6 +215,7 @@ public class GUIView extends JFrame {
         townNames.sort(null);
         
         // Monthly, Yearly or Both:
+        // Add only "Monthly" and "Yearly" as time goes on.
         String[] timeGranularity = {"Both Monthly and Yearly", "Monthly", "Yearly"};
         
         // Start & End Months:
@@ -258,7 +262,7 @@ public class GUIView extends JFrame {
 		
 		loadRawDataButton = new JButton("Load Raw Data");
 		loadSummaryDataButton = new JButton("Load Summary Data");
-		loadChartButton = new JButton("Load Chart (Separate Window)");
+		loadChartButton = new JButton("Load Chart (Separate Window) (MUST Load Raw Data FIRST)");
 		
 		
 		// Setting up layouts for panels:

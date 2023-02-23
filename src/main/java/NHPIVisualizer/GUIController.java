@@ -1,12 +1,8 @@
 package NHPIVisualizer;
 
-import java.awt.CardLayout;
-import java.awt.Container;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class GUIController {
 	
-	private GUIView view;
+	//private GUIView view;
 	//private GUIModel model;
 	private ResultSet result;
 	private ResultSet result2;
@@ -28,7 +24,7 @@ public class GUIController {
 	
 	public GUIController(final GUIView view, final GUIModel model) {
 		
-		this.view = view;
+		//this.view = view;
 		//this.model = model;
 		
 		JComboBox<String> geographicalParametersComboBox = view.getGeographicalParametersComboBox();
@@ -92,35 +88,44 @@ public class GUIController {
 					startDate = view.getStartYearComboBox().getSelectedItem().toString();
 				}
 				
-				if (!dateErrorChecking(startDate, endDate)) 
+				if (!dateErrorChecking(startDate, endDate))  {
 					JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
-				
-				
+					return;
+				}
+	
 				if (selected.equals("2 Provinces"))  {
 					args[0] = view.getProvinceList1().getSelectedItem().toString();
 					args[1] = view.getProvinceList2().getSelectedItem().toString();
-					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) 
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) {
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+						return;
+					}
 					query = QueryFactory.createQuery("2 Provinces", args, startDate, endDate);
 				} else if (selected.equals("2 Towns")) {
 					args[0] = view.getTownList1().getSelectedItem().toString();
 					args[1] = view.getTownList2().getSelectedItem().toString();
-					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) 
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1])) {
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+						return;
+					}
 					query = QueryFactory.createQuery("2 Towns", args, startDate, endDate);
 				} else if (selected.equals("3 Provinces")) {
 					args[0] = view.getThreeProvinceList1().getSelectedItem().toString();
 					args[1] = view.getThreeProvinceList2().getSelectedItem().toString();
 					args[2] = view.getThreeProvinceList3().getSelectedItem().toString();
-					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) 
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) {
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+						return;
+					}
 					query = QueryFactory.createQuery("3 Provinces", args, startDate, endDate);
 				} else {
 					args[0] = view.getThreeTownList1().getSelectedItem().toString();
 					args[1] = view.getThreeTownList2().getSelectedItem().toString();
 					args[2] = view.getThreeTownList3().getSelectedItem().toString();
-					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) 
+					if (emptySelectionChecking(args[0]) || emptySelectionChecking(args[1]) || emptySelectionChecking(args[2])) {
 						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+						return;
+					}
 					query = QueryFactory.createQuery("3 Towns", args, startDate, endDate);
 				}
 				
@@ -179,7 +184,6 @@ public class GUIController {
 				String startDate = "";
 				String endDate = "";
 				Query query2;
-				ResultSet result;
 				
 				if (checkBothMonthlyAndYearly(selected2)) {
 					endDate = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
@@ -335,9 +339,67 @@ public class GUIController {
 				model.loadData(query);
 				ResultSet rs = model.getData();
 				
+				
 				if (view.getChartTypesComboBox().getSelectedItem().equals("Line Chart")) {
 					
 					chartContext.setChartStrategy(new LineChartStrategy());
+					
+					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces") || 
+							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
+						
+						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
+							
+							if (emptySelectionChecking(view.getProvinceList1().getSelectedItem().toString()) || emptySelectionChecking(view.getProvinceList2().getSelectedItem().toString())) {
+								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
+								return;
+							}
+							
+							chartContext.drawChartFor2Series(rs, view.getProvinceList1().getSelectedItem().toString(),
+									view.getProvinceList2().getSelectedItem().toString());
+							
+						} else {
+							
+							if (emptySelectionChecking(view.getTownList1().getSelectedItem().toString()) || emptySelectionChecking(view.getTownList2().getSelectedItem().toString())) {
+								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
+								return;
+							}
+							chartContext.drawChartFor2Series(rs, view.getTownList1().getSelectedItem().toString(),
+									view.getTownList2().getSelectedItem().toString());
+						}
+						
+					} else {
+						
+						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces")) {
+							
+							if (emptySelectionChecking(view.getThreeProvinceList1().getSelectedItem().toString()) || emptySelectionChecking(view.getThreeProvinceList2().getSelectedItem().toString())
+									|| emptySelectionChecking(view.getThreeProvinceList3().getSelectedItem().toString())) {
+								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
+								return;
+							}
+							
+							chartContext.drawChartFor3Series(rs, view.getThreeProvinceList1().getSelectedItem().toString(),
+									view.getThreeProvinceList2().getSelectedItem().toString(),
+									view.getThreeProvinceList3().getSelectedItem().toString());
+							
+						} else {
+							
+							if (emptySelectionChecking(view.getThreeTownList1().getSelectedItem().toString()) || emptySelectionChecking(view.getThreeTownList2().getSelectedItem().toString())
+									|| emptySelectionChecking(view.getThreeTownList3().getSelectedItem().toString())) {
+								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
+								return;
+							}
+							
+							chartContext.drawChartFor3Series(rs, view.getThreeTownList1().getSelectedItem().toString(),
+									view.getThreeTownList2().getSelectedItem().toString(),
+									view.getThreeTownList3().getSelectedItem().toString());
+						}
+						
+						
+					}
+					
+				} else {
+					
+					chartContext.setChartStrategy(new BarChartStrategy());
 					
 					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces") || 
 							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
@@ -361,22 +423,6 @@ public class GUIController {
 									view.getThreeTownList2().getSelectedItem().toString(),
 									view.getThreeTownList3().getSelectedItem().toString());
 						}
-						
-						
-					}
-					
-				} else {
-					
-					chartContext.setChartStrategy(new BarChartStrategy());
-					
-					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces") || 
-							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
-						
-						//chartContext.drawChartFor2Series(rs);
-						
-					} else {
-						
-						//chartContext.drawChartFor3Series(rs);
 						
 					}
 					

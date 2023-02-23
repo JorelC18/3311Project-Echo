@@ -17,7 +17,7 @@ public class GUIModel {
 	// Instance variables for a SQL connection and query
 	private Connection connection;
 	private ResultSet rs;
-	private String query;
+	//private String query;
 	
 	public static String url;
 	public static String username;
