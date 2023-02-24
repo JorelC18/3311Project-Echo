@@ -6,7 +6,7 @@ NHPI Visualizer is a project for a course in software design. It uses Java Swing
 
 The main executable java file is MainTest.java. 
 
-Input your own SQL username and passwor
+Input your own SQL url, username, and password in both the MainTest class and the SQLConnection class.
 
 Then run MainTest.java to see the GUI and start the program.
 
