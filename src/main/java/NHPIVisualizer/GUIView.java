@@ -2,6 +2,7 @@ package NHPIVisualizer;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.sql.ResultSet;
@@ -99,6 +100,7 @@ public class GUIView extends JFrame {
     private JButton loadRawDataButton;
     private JButton loadSummaryDataButton;
     private JButton loadChartButton;
+    private JButton loadTestButton;
     
     
     // Tables
@@ -263,6 +265,7 @@ public class GUIView extends JFrame {
 		loadRawDataButton = new JButton("Load Raw Data");
 		loadSummaryDataButton = new JButton("Load Summary Data");
 		loadChartButton = new JButton("Load Chart (Separate Window) (MUST Load Raw Data FIRST)");
+		loadTestButton = new JButton("Load t_Test result");
 		
 		
 		// Setting up layouts for panels:
@@ -386,6 +389,7 @@ public class GUIView extends JFrame {
 		buttonsPanel.add(loadRawDataButton);
 		buttonsPanel.add(loadSummaryDataButton);
 		buttonsPanel.add(loadChartButton);
+		buttonsPanel.add(loadTestButton);
 		
 		frame.add(buttonsPanel, BorderLayout.SOUTH);
 		
@@ -832,10 +836,11 @@ public class GUIView extends JFrame {
 	public JButton getLoadChartButton() {
 		return loadChartButton;
 	}
-
-
-
-
+	
+	
+	public JButton getLoadTestButton() {
+		return loadTestButton;
+	}
 
 
 

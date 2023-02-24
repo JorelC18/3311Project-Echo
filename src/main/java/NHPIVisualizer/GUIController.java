@@ -428,10 +428,63 @@ public class GUIController {
 					
 				}
 				
+			}
+		});
+		
+		
+		JButton loadTestButton = view.getLoadTestButton();
+		
+		loadTestButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
 				
+				TestContext testContext = new TestContext();
+				model.loadData(query);
+				ResultSet rs = model.getData();
+				
+				testContext.setTestStrategy(new t_TestStrategy());
+				
+				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
+						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Towns")) {
+					
+					JOptionPane.showMessageDialog(view.getFrame(), "Please select 2 provinces or 2 towns");
+					
+				}else {
+					
+					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
+						if (emptySelectionChecking(view.getProvinceList1().getSelectedItem().toString()) 
+								|| emptySelectionChecking(view.getProvinceList2().getSelectedItem().toString())) {
+							
+							JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / test can not perform.");
+							return;
+						}
+						
+						testContext.t_Test(rs, view.getProvinceList1().getSelectedItem().toString(),
+								view.getProvinceList2().getSelectedItem().toString(),
+								view.endYearComboBox.getSelectedItem().toString() + "-" + view.endMonthComboBox.getSelectedItem().toString().substring(0, 2),
+							    view.startYearComboBox.getSelectedItem().toString() + "-" + view.startMonthComboBox.getSelectedItem().toString().substring(0, 2)
+								 );
+						
+					}else {
+						
+						if (emptySelectionChecking(view.getTownList1().getSelectedItem().toString()) 
+								|| emptySelectionChecking(view.getTownList2().getSelectedItem().toString())) {
+							
+							JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / test can not perform .");
+							return;
+						}
+						
+						testContext.t_Test(rs, view.getTownList1().getSelectedItem().toString(),
+								view.getTownList2().getSelectedItem().toString(),
+								view.endYearComboBox.getSelectedItem().toString() + "-" + view.endMonthComboBox.getSelectedItem().toString().substring(0, 2),
+							    view.startYearComboBox.getSelectedItem().toString() + "-" + view.startMonthComboBox.getSelectedItem().toString().substring(0, 2)
+							    );
+					}
+				}
 				
 				
 			}
+			
 		});
 		
 	}
