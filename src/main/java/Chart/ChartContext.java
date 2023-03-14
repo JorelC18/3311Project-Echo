@@ -1,4 +1,4 @@
-package NHPIVisualizer;
+package Chart;
 
 import java.sql.ResultSet;
 

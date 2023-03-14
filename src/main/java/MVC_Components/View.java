@@ -1,4 +1,4 @@
-package NHPIVisualizer;
+package MVC_Components;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -22,7 +22,7 @@ import javax.swing.JTable;
  * UI part is the GUI created with Java swing.
  */
 
-public class GUIView extends JFrame {
+public class View extends JFrame {
 	
 	/**
 	 * 
@@ -112,7 +112,7 @@ public class GUIView extends JFrame {
     private JScrollPane summaryDataScrollPane;
     
     // To initialize all GUI components. Also to set up layout
-    public GUIView() {
+    public View() {
     	
     	// JFrame:
 		frame = new JFrame("NHPI Visualizer");

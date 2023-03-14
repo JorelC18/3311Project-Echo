@@ -1,4 +1,4 @@
-package NHPIVisualizer;
+package SQLConnection;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,7 +16,7 @@ public class SQLConnection {
 		try {
 			String url = "jdbc:mysql://localhost:3306/echodata";
 			String user = "root";
-			String password = "123456jj";
+			String password = "password";
 			String csvPath = "src/echoData.csv";
 			int batchSize = 20;
 			

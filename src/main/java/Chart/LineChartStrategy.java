@@ -1,4 +1,4 @@
-package NHPIVisualizer;
+package Chart;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

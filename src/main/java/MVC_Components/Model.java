@@ -1,4 +1,4 @@
-package NHPIVisualizer;
+package MVC_Components;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Query.Query;
+
 /*
  * Model part of MVC architecture.
  * Model - represents data that is being transferred from View and Controller parts.
  * The data being transferred is the SQL data.
  */
 
-public class GUIModel {
+public class Model {
 	
 	// Instance variables for a SQL connection and query
 	private Connection connection;
@@ -23,23 +25,23 @@ public class GUIModel {
 	public static String username;
 	public static String password;
 	
-	private GUIModel(Connection connection) {
+	private Model(Connection connection) {
 		this.connection = connection;
 	}
 	
 	// To initialize connection to database
-	public static GUIModel createConnection(String url, String username, String password) {
+	public static Model createConnection(String url, String username, String password) {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, username, password);
-			GUIModel.url = url;
-			GUIModel.username = username;
-			GUIModel.password = password;
+			Model.url = url;
+			Model.username = username;
+			Model.password = password;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return new GUIModel(conn);
+		return new Model(conn);
 	}
 	
 	// Load data from database
