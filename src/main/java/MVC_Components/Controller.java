@@ -493,6 +493,7 @@ public class Controller {
 				
 				testContext.setTestStrategy(new t_TestStrategy());
 				
+				// Display error message when either 3 provinces or 3 towns is selected
 				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
 						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Towns")) {
 					
@@ -500,6 +501,7 @@ public class Controller {
 					
 				}
 				else {
+					// Check if either of the two province inputs are empty
 					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
 						if (emptySelectionChecking(view.getProvinceList1().getSelectedItem().toString()) 
 								|| emptySelectionChecking(view.getProvinceList2().getSelectedItem().toString())) {
@@ -510,14 +512,14 @@ public class Controller {
 						
 						testContext.t_Test(rs, view.getProvinceList1().getSelectedItem().toString(),
 								view.getProvinceList2().getSelectedItem().toString(),
-								view.endYearComboBox.getSelectedItem().toString() + "-" + view.endMonthComboBox.getSelectedItem().toString().substring(0, 2),
-							    view.startYearComboBox.getSelectedItem().toString() + "-" + view.startMonthComboBox.getSelectedItem().toString().substring(0, 2)
+								view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
+							    view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2)
 						);
 					
 						
 				}
 				else {
-						
+						// Check if either of the two town inputs are empty
 						if (emptySelectionChecking(view.getTownList1().getSelectedItem().toString()) 
 								|| emptySelectionChecking(view.getTownList2().getSelectedItem().toString())) {
 							
@@ -527,8 +529,8 @@ public class Controller {
 						
 						testContext.t_Test(rs, view.getTownList1().getSelectedItem().toString(),
 								view.getTownList2().getSelectedItem().toString(),
-								view.endYearComboBox.getSelectedItem().toString() + "-" + view.endMonthComboBox.getSelectedItem().toString().substring(0, 2),
-							    view.startYearComboBox.getSelectedItem().toString() + "-" + view.startMonthComboBox.getSelectedItem().toString().substring(0, 2)
+								view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
+							    view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2)
 							    );
 					}
 				}
