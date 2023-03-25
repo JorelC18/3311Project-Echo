@@ -17,7 +17,7 @@ import org.apache.commons.math3.stat.inference.TTest;
 
 public class t_TestStrategy implements TestStrategy {
 	
-	public void t_Test(ResultSet result, String selection1, String selection2, String endDate, String startDate) {
+	public void t_Test(ResultSet result, String query1, String query2) {
 		
 		JFrame frame = new JFrame();
 		JLabel degreesOfFreedomResult;
@@ -25,15 +25,13 @@ public class t_TestStrategy implements TestStrategy {
 		JLabel pResult;
 		JLabel statement;
 		
-		System.out.println(selection1);
-		System.out.println(selection2);
-		System.out.println(endDate);
-		System.out.println(startDate);
-		
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/echodata", "root", "password");
 			
-			String query1 = "SELECT VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
+			ResultSet rs1;
+			ResultSet rs2;
+			
+			/*String query1 = "SELECT VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
 					endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
 			ResultSet rs1;
 			System.out.println(query1);
@@ -41,7 +39,7 @@ public class t_TestStrategy implements TestStrategy {
 			String query2 = "SELECT VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + selection2 + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
 					endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
 			ResultSet rs2;
-			System.out.println(query2);
+			System.out.println(query2);*/
 			
 			ArrayList<Double> resultSample1 = new ArrayList<Double>();
 			Statement statement1 = connection.prepareStatement(query1);
@@ -85,8 +83,8 @@ public class t_TestStrategy implements TestStrategy {
 			}
 			DescriptiveStatistics stats2 = new DescriptiveStatistics(result2);
 			
-			System.out.println(stats1.getN());
-			System.out.println(stats2.getN());
+			/*System.out.println(stats1.getN());
+			System.out.println(stats2.getN());*/
 			
 			//t_Test formula performing
 			double degreesOfFreedom = stats1.getN() + stats2.getN() - 2;
@@ -114,7 +112,7 @@ public class t_TestStrategy implements TestStrategy {
 				JLabel t_value = new JLabel("t-value:");
 				JLabel p_value = new JLabel("p-value:");
 				
-				frame.setTitle("Testing");
+				frame.setTitle("T_Test Results");
 			    frame.setLayout(null);
 			    frame.setSize(400,400);
 			    frame.setVisible(true);

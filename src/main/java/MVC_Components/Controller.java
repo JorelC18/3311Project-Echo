@@ -510,11 +510,23 @@ public class Controller {
 							return;
 						}
 						
-						testContext.t_Test(rs, view.getProvinceList1().getSelectedItem().toString(),
+						String[] provinceInput = new String[1];
+						provinceInput[0] = view.getProvinceList1().getSelectedItem().toString();
+						String startDate = view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+						String endDate = view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+						String query1 = QueryFactory.createQuery("t_Test", provinceInput, startDate, endDate).getQuery();
+						
+						String[] provinceInput2 = new String[1];
+						provinceInput2[0] = view.getProvinceList2().getSelectedItem().toString();
+						String query2 = QueryFactory.createQuery("t_Test", provinceInput2, startDate, endDate).getQuery();
+						
+						testContext.t_Test(rs, query1, query2);
+						
+						/*testContext.t_Test(rs, view.getProvinceList1().getSelectedItem().toString(),
 								view.getProvinceList2().getSelectedItem().toString(),
 								view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
 							    view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2)
-						);
+						);*/
 					
 						
 				}
@@ -527,11 +539,23 @@ public class Controller {
 							return;
 						}
 						
-						testContext.t_Test(rs, view.getTownList1().getSelectedItem().toString(),
+						String[] townInput = new String[1];
+						townInput[0] = view.getTownList1().getSelectedItem().toString();
+						String startDate = view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+						String endDate = view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+						String query1 = QueryFactory.createQuery("t_Test", townInput, startDate, endDate).getQuery();
+						
+						String[] townInput2 = new String[1];
+						townInput2[0] = view.getTownList2().getSelectedItem().toString();
+						String query2 = QueryFactory.createQuery("t_Test", townInput2, startDate, endDate).getQuery();
+						
+						testContext.t_Test(rs, query1, query2);
+						
+						/*testContext.t_Test(rs, view.getTownList1().getSelectedItem().toString(),
 								view.getTownList2().getSelectedItem().toString(),
 								view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
 							    view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2)
-							    );
+							    );*/
 					}
 				}
 				

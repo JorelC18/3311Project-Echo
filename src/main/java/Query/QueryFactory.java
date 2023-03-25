@@ -15,6 +15,9 @@ public class QueryFactory {
 		else if (queryType.equals("3 Summary")) {
 			return new ThreeLocationSummaryQuery(args[0], args[1], args[2], startDate, endDate);
 		}
+		else if (queryType.equals("t_Test")) {
+			return new t_TestQuery(args[0], startDate, endDate);
+		}
 		else {
 			throw new IllegalArgumentException("Wrong query type");
 		}
