@@ -101,6 +101,7 @@ public class View extends JFrame {
     private JButton loadSummaryDataButton;
     private JButton loadChartButton;
     private JButton loadTestButton;
+    private JButton loadForecastingButton;
     
     
     // Tables
@@ -266,6 +267,7 @@ public class View extends JFrame {
 		loadSummaryDataButton = new JButton("Load Summary Data");
 		loadChartButton = new JButton("Load Chart (Separate Window) (MUST Load Raw Data FIRST)");
 		loadTestButton = new JButton("Load t_Test result");
+		loadForecastingButton = new JButton("Forecast");
 		
 		
 		// Setting up layouts for panels:
@@ -390,6 +392,7 @@ public class View extends JFrame {
 		buttonsPanel.add(loadSummaryDataButton);
 		buttonsPanel.add(loadChartButton);
 		buttonsPanel.add(loadTestButton);
+		buttonsPanel.add(loadForecastingButton);
 		
 		frame.add(buttonsPanel, BorderLayout.SOUTH);
 		
@@ -841,6 +844,10 @@ public class View extends JFrame {
 	public JButton getLoadTestButton() {
 		return loadTestButton;
 	}
+	
+	public JButton getLoadForecastingButton() {
+		return loadForecastingButton;
+	}
 
 
 
@@ -946,6 +953,5 @@ public class View extends JFrame {
 	public void displayData(ResultSet data) {
     	
     }
-    
-    
+
 }

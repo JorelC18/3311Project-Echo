@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import Chart.BarChartStrategy;
 import Chart.ChartContext;
 import Chart.LineChartStrategy;
+import Forecasting.Forecasting;
 import Query.Query;
 import Query.QueryFactory;
 import Test.TestContext;
@@ -562,6 +563,30 @@ public class Controller {
 				
 			}
 			
+		});
+		
+		JButton loadForecastingButton = view.getLoadForecastingButton();
+		
+		loadForecastingButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				Forecasting Forecasting = new Forecasting();
+				
+				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
+						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
+				
+					Forecasting.Forcasting(view.getProvinceList1().getSelectedItem().toString(), 
+							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
+							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));
+				}
+				else {
+					
+					Forecasting.Forcasting(view.getTownList1().getSelectedItem().toString(), 
+							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
+							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));
+				}
+			}
 		});
 		
 	}
