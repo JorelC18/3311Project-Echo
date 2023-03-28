@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import Chart.BarChartStrategy;
 import Chart.ChartContext;
 import Chart.LineChartStrategy;
-import Forecasting.Forecasting;
+import Forecasting.ForecastingStrategy;
 import Query.Query;
 import Query.QueryFactory;
 import Test.TestContext;
@@ -515,6 +515,7 @@ public class Controller {
 		});
 		
 		/*------------------------------------------------------------------------------------------------------------*/
+		// T-Testing
 		
 		JButton loadTestButton = view.getLoadTestButton();
 		
@@ -604,30 +605,27 @@ public class Controller {
 			
 		});
 		
+		/*------------------------------------------------------------------------------------------------------------*/
+		// Forecasting
+		
 		JButton loadForecastingButton = view.getLoadForecastingButton();
-		
-		/**
-		 * Adds an action listener to the load forecasting button to show a prediction of the next X months of a given time-series.
-		 * @param e The ActionEvent object that represents the user's action taken
-		 */
-		
 		
 		loadForecastingButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				
-				Forecasting Forecasting = new Forecasting();
+				ForecastingStrategy Forecasting = new ForecastingStrategy();
 				
 				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
 						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
 				
-					Forecasting.Forcasting(view.getProvinceList1().getSelectedItem().toString(), 
+					Forecasting.LinearRegressionForecasting(view.getProvinceList1().getSelectedItem().toString(), 
 							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
 							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));
 				}
 				else {
 					
-					Forecasting.Forcasting(view.getTownList1().getSelectedItem().toString(), 
+					Forecasting.LinearRegressionForecasting(view.getTownList1().getSelectedItem().toString(), 
 							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
 							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));
 				}
