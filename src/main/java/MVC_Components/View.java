@@ -990,6 +990,11 @@ public class View extends JFrame {
 		return loadTestButton;
 	}
 	
+	/**
+     * Method to get a reference to the load forecasting button.
+     * @return the load forecasting button
+     */
+	
 	public JButton getLoadForecastingButton() {
 		return loadForecastingButton;
 	}

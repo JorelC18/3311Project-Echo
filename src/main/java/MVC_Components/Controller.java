@@ -606,6 +606,12 @@ public class Controller {
 		
 		JButton loadForecastingButton = view.getLoadForecastingButton();
 		
+		/**
+		 * Adds an action listener to the load forecasting button to show a prediction of the next X months of a given time-series.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
+		
 		loadForecastingButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

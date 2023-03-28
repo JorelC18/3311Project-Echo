@@ -43,7 +43,21 @@ import weka.experiment.InstanceQuery;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.RemoveWithValues;
 
+/**
+ * Class for forecasting methods. Contains implementation of Use Case 5.
+ * Used in collaboration with WEKA.
+ * @author Jorel Louie Chim
+ *
+ */
+
 public class Forecasting {
+	
+	/**
+	 * Method to predict the next X months of a given time-series.
+	 * @param selection1 selected location by user
+	 * @param endDate selected end date by user
+	 * @param startDate selected start date by user
+	 */
 
 	public void Forcasting(final String selection1, final String endDate, final String startDate){
 		
@@ -126,7 +140,13 @@ public class Forecasting {
 		frame.add(eastPanel, BorderLayout.EAST);
 		frame.add(southPanel, BorderLayout.SOUTH);
 		
+		/**
+		 * Adds an action listener to start the forecasting.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		//action listener to start forecasting
+		
 		showData.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
