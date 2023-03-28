@@ -16,17 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-/*
- * View part of MVC architecture.
- * View - used for all UI logic.
+/**
+ * View part of MVC architecture. It is used for all UI logic.
  * UI part is the GUI created with Java swing.
+ * @author Jorel Louie Chim
  */
 
 public class View extends JFrame {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// Main frame
@@ -399,16 +396,20 @@ public class View extends JFrame {
 		
     }
     
-
+    /**
+     * Method to get a reference to the frame.
+     * @return the frame
+     */
 
 	public JFrame getFrame() {
 		return frame;
 	}
 
 
-
-
-
+	 /**
+     * Method to get a reference to the geographical parameters panel.
+     * @return the geographical parameters panel
+     */
 
 	public JPanel getGeographicalParametersPanel() {
 		return geographicalParametersPanel;
@@ -416,7 +417,10 @@ public class View extends JFrame {
 
 
 
-
+	/**
+     * Method to get a reference to the geographical parameters main sub panel.
+     * @return the geographical parameters main sub panel
+     */
 
 
 	public JPanel getGeographicalParametersMainSubPanel() {
@@ -424,7 +428,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the geographical parameters PT sub panel.
+     * @return the geographical parameters PT sub panel
+     */
 
 
 
@@ -432,18 +439,20 @@ public class View extends JFrame {
 		return geographicalParametersPTSubPanel;
 	}
 
-
-
-
+	/**
+     * Method to get a reference to the geographical parameters province sub panel.
+     * @return the geographical parameters province sub panel.
+     */
 
 
 	public JPanel getGeographicalParametersProvinceSubPanel() {
 		return geographicalParametersProvinceSubPanel;
 	}
 
-
-
-
+	/**
+     * Method to get a reference to the geographical parameters town sub panel.
+     * @return the geographical parameters town sub panel.
+     */
 
 
 	public JPanel getGeographicalParametersTownSubPanel() {
@@ -451,26 +460,29 @@ public class View extends JFrame {
 	}
 
 
-
-
-
+	/**
+     * Method to get a reference to the time parameters panel.
+     * @return the time parameters panel
+     */
 
 	public JPanel getTimeParametersPanel() {
 		return timeParametersPanel;
 	}
 
 
-
-
-
+	/**
+     * Method to get a reference to the time parameters main sub panel.
+     * @return the time parameters main sub panel
+     */
 
 	public JPanel getTimeParametersMainSubPanel() {
 		return timeParametersMainSubPanel;
 	}
 
-
-
-
+	/**
+     * Method to get a reference to the time parameters BMY sub panel.
+     * @return the time parameters BMY sub panel
+     */
 
 
 	public JPanel getTimeParametersBMYSubPanel() {
@@ -478,8 +490,10 @@ public class View extends JFrame {
 	}
 
 
-
-
+	/**
+     * Method to get a reference to the time parameters both sub panel.
+     * @return the time parameters both sub panel
+     */
 
 
 	public JPanel getTimeParametersBothSubPanel() {
@@ -487,7 +501,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the time parameters month sub panel.
+     * @return the time parameters month sub panel
+     */
 
 
 
@@ -496,7 +513,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the time parameters year sub panel.
+     * @return the time parameters year sub panel
+     */
 
 
 
@@ -505,7 +525,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the table panel.
+     * @return the table panel
+     */
 
 
 
@@ -514,6 +537,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to the load chart panel.
+     * @return the load chart panel
+     */
 
 
 
@@ -523,6 +550,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to the buttons panel.
+     * @return the buttons panel
+     */
 
 
 
@@ -532,6 +563,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to the overall panel.
+     * @return the overall panel
+     */
 
 
 
@@ -541,7 +576,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start nested panel.
+     * @return the start nested panel.
+     */
 
 
 
@@ -550,6 +588,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to card layout 1.
+     * @return the first card layout
+     */
 
 
 
@@ -559,6 +601,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to card layout 2.
+     * @return the second card layout
+     */
 
 
 
@@ -569,6 +615,10 @@ public class View extends JFrame {
 
 
 
+	/**
+     * Method to get a reference to card layout 3.
+     * @return the third card layout
+     */
 
 
 
@@ -577,6 +627,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to the geographical parameters label.
+     * @return the geographical parameters label
+     */
 
 
 
@@ -586,7 +640,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start month label.
+     * @return the start month label
+     */
 
 
 
@@ -595,7 +652,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start year label.
+     * @return the start year label
+     */
 
 
 
@@ -604,7 +664,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the end month label.
+     * @return the end month label
+     */
 
 
 
@@ -613,7 +676,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the end year label.
+     * @return the end year label
+     */
 
 
 
@@ -622,7 +688,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start month label 2.
+     * @return the start month label 2
+     */
 
 
 
@@ -631,7 +700,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start year label 2.
+     * @return the start year label 2
+     */
 
 
 
@@ -640,6 +712,10 @@ public class View extends JFrame {
 	}
 
 
+	/**
+     * Method to get a reference to the end month label 2.
+     * @return the end month label 2
+     */
 
 
 
@@ -650,6 +726,10 @@ public class View extends JFrame {
 
 
 
+	/**
+     * Method to get a reference to the end year label 2.
+     * @return the end year label 2
+     */
 
 
 
@@ -659,6 +739,10 @@ public class View extends JFrame {
 
 
 
+	/**
+     * Method to get a reference to the time granularity label.
+     * @return the time granularity label
+     */
 
 
 
@@ -668,6 +752,10 @@ public class View extends JFrame {
 
 
 
+	/**
+     * Method to get a reference to the chart type label.
+     * @return the chart type label
+     */
 
 
 
@@ -676,7 +764,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the geographical parameters combo box.
+     * @return the geographical parameters combo box
+     */
 
 
 
@@ -685,7 +776,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the provincelist1 combo box.
+     * @return the provincelist1 combo box
+     */
 
 
 
@@ -694,7 +788,10 @@ public class View extends JFrame {
 	}
 
 
-	
+	/**
+     * Method to get a reference to the provincelist2 combo box.
+     * @return the provincelist2 combo box
+     */
 
 
 
@@ -703,7 +800,10 @@ public class View extends JFrame {
 	}
 
 	
-
+	/**
+     * Method to get a reference to the townlist1 combo box.
+     * @return the townlist1 combo box
+     */
 
 
 
@@ -712,7 +812,10 @@ public class View extends JFrame {
 	}
 
 
-	
+	/**
+     * Method to get a reference to the townlist2 combo box.
+     * @return the townlist2 combo box
+     */
 
 
 
@@ -721,7 +824,10 @@ public class View extends JFrame {
 	}
 
 	
-
+	/**
+     * Method to get a reference to the time granularity combo box.
+     * @return the time granularity combo box
+     */
 
 
 
@@ -730,7 +836,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start month combo box.
+     * @return the start month combo box
+     */
 
 
 
@@ -739,7 +848,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the start year combo box.
+     * @return the start year combo box
+     */
 
 
 
@@ -748,7 +860,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the end month combo box.
+     * @return the end month combo box
+     */
 
 
 
@@ -757,7 +872,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the end year combo box.
+     * @return the end year combo box
+     */
 
 
 
@@ -766,7 +884,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the second start month combo box.
+     * @return the startMonth2 combo box
+     */
 
 
 
@@ -774,8 +895,10 @@ public class View extends JFrame {
 		return startMonthComboBox2;
 	}
 
-
-
+	/**
+     * Method to get a reference to the second start year combo box.
+     * @return the startYear2 combo box
+     */
 
 
 
@@ -784,7 +907,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the second end month combo box.
+     * @return the endMonth2 combo box
+     */
 
 
 
@@ -793,7 +919,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the second end year combo box.
+     * @return the endYear2 combo box
+     */
 
 
 
@@ -802,7 +931,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the chart types combo box.
+     * @return the chart types combo box
+     */
 
 
 
@@ -812,7 +944,10 @@ public class View extends JFrame {
 
 
 
-
+	/**
+     * Method to get a reference to the load raw data button.
+     * @return the load raw data button
+     */
 
 
 	public JButton getLoadRawDataButton() {
@@ -820,7 +955,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the load summary data button.
+     * @return the load summary data button
+     */
 
 
 
@@ -829,7 +967,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the load chart button.
+     * @return the load chart button
+     */
 
 
 
@@ -837,21 +978,29 @@ public class View extends JFrame {
 		return loadChartButton;
 	}
 	
+	/**
+     * Method to get a reference to the load test button.
+     * @return the load test button
+     */
 	
 	public JButton getLoadTestButton() {
 		return loadTestButton;
 	}
 
-
-
+	/**
+     * Method to get a reference to the raw data table.
+     * @return the raw data table
+     */
 
 	public JTable getRawDataTable() {
 		return rawDataTable;
 	}
 
 
-
-
+	/**
+     * Method to get a reference to the summary data table.
+     * @return the summary data table
+     */
 
 
 	public JTable getSummaryDataTable() {
@@ -859,7 +1008,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the raw data scroll pane.
+     * @return the raw data scroll pane
+     */
 
 
 
@@ -868,7 +1020,10 @@ public class View extends JFrame {
 	}
 
 
-
+	/**
+     * Method to get a reference to the summary data scroll pane.
+     * @return the summary data scroll pane
+     */
 
 
 
@@ -877,6 +1032,10 @@ public class View extends JFrame {
 	}
 
 	
+	/**
+     * Method to get a reference to the geographical parameters 3 province sub panel.
+     * @return the geographical parameters 3 province sub panel
+     */
 
 
 
@@ -884,34 +1043,51 @@ public class View extends JFrame {
 		return geographicalParameters3ProvinceSubPanel;
 	}
 
+	/**
+     * Method to get a reference to the geographical parameters 3 town sub panel.
+     * @return the geographical parameters 3 town sub panel
+     */
 
 
 	public JPanel getGeographicalParameters3TownSubPanel() {
 		return geographicalParameters3TownSubPanel;
 	}
 
-
+	/**
+     * Method to get a reference to the first three province list combo box.
+     * @return the first three province list combo box
+     */
 
 	public JComboBox<String> getThreeProvinceList1() {
 		return threeProvinceList1;
 	}
 	
 	
-
+	/**
+     * Method to get a reference to the second three province list combo box.
+     * @return the second three province list combo box
+     */
 
 
 	public JComboBox<String> getThreeProvinceList2() {
 		return threeProvinceList2;
 	}
 	
+	/**
+     * Method to get a reference to the third three province list combo box.
+     * @return the third three province list combo box
+     */
 	
-
 
 
 	public JComboBox<String> getThreeProvinceList3() {
 		return threeProvinceList3;
 	}
 	
+	/**
+     * Method to get a reference to the third town list combo box.
+     * @return the third town list combo box
+     */
 	
 
 
@@ -919,7 +1095,10 @@ public class View extends JFrame {
 		return townList3;
 	}
 	
-	
+	/**
+     * Method to get a reference to the first three town list combo box.
+     * @return the first three town list combo box
+     */
 
 
 	public JComboBox<String> getThreeTownList1() {
@@ -927,25 +1106,25 @@ public class View extends JFrame {
 	}
 	
 
-
+	/**
+     * Method to get a reference to the second three town list combo box.
+     * @return the second three town list combo box
+     */
 
 
 	public JComboBox<String> getThreeTownList2() {
 		return threeTownList2;
 	}
 	
+	/**
+     * Method to get a reference to the third three town list combo box.
+     * @return the third three town list combo box
+     */
 	
 	public JComboBox<String> getThreeTownList3() {
 		return threeTownList3;
 	}
 
 
-	
-
-
-	public void displayData(ResultSet data) {
-    	
-    }
-    
     
 }

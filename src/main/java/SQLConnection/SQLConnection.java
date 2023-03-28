@@ -7,9 +7,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-// Class to create SQL data table.
+/**
+ * Class to create the SQL data table for new users.
+ * @author Jorel Louie Chim
+ */
 
 public class SQLConnection {
+	
+	/**
+	 * Main executable method to create a SQL data table.
+	 */
 	
 	public static void main(String[] args) {
 		Connection conn = null;

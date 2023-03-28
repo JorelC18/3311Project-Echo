@@ -1,11 +1,27 @@
 package Query;
 
+/**
+ * Class for 3 location queries for summary data.
+ * @author Jorel Louie Chim
+ *
+ */
+
 public class ThreeLocationSummaryQuery implements Query {
+	
 	private String selection1;
 	private String selection2;
 	private String selection3;
 	private String startDate;
 	private String endDate;
+	
+	/**
+	 * Constructor to set all instance variables.
+	 * @param selection1 first location selected by the user
+	 * @param selection2 second location selected by the user
+	 * @param selection3 third location selected by the user
+	 * @param startDate start date selected by the user
+	 * @param endDate end date selected by the user
+	 */
 	
 	public ThreeLocationSummaryQuery(String selection1, String selection2, String selection3, String startDate, String endDate) {
 		this.selection1 = selection1;
@@ -14,6 +30,11 @@ public class ThreeLocationSummaryQuery implements Query {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	
+	/**
+	 * Creates the query using the instance variables, and returns it.
+	 * @return the query with all instance variables
+	 */
 	
 	public String getQuery() {
 		/*System.out.println("SELECT * FROM (SELECT FORMAT(AVG(VALUE), 2) AS \"" + selection1 + " Average\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate +"\")) AS A,\r\n"

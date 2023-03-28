@@ -16,10 +16,10 @@ import Test.TestContext;
 import Test.t_TestStrategy;
 
 
-/*
+/**
  * Controller part of MVC architecture.
- * Controller - processes all logic and requests. works with both view and model.
- * Has actionListeners...
+ * It processes all logic and requests. works with both view and model.
+ * @author Jorel Louie Chim
  */
 
 public class Controller {
@@ -30,12 +30,24 @@ public class Controller {
 	
 	String geoComboBoxSelection;
 	
+	/**
+	 * Constructor for the controller part.
+	 * @param view view part of the MVC architecture
+	 * @param model model part of the MVC architecture
+	 */
+	
 	public Controller(final View view, final Model model) {
 		
 		/*------------------------------------------------------------------------------------------------------------*/
 		// Change drop down menus based on geographical parameter selection.
 		
 		JComboBox<String> geographicalParametersComboBox = view.getGeographicalParametersComboBox();
+		
+		/**
+		 * Adds an action listener to the geographical parameters combo box to show different combo boxes depending on the user's selection.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		geographicalParametersComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
@@ -57,6 +69,12 @@ public class Controller {
 		// Change drop down menus based on time granularity parameter selection.
 		
 		JComboBox<String> timeGranularityComboBox = view.getTimeGranularityComboBox();
+		
+		/**
+		 * Adds an action listener to the time granularity combo box to show different combo boxes depending on the user's selection.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		timeGranularityComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
@@ -76,6 +94,12 @@ public class Controller {
 		// Process raw data.
 		
 		JButton loadRawDataButton = view.getLoadRawDataButton();
+		
+		/**
+		 * Adds an action listener to the load raw data button to show data loaded into a table based on the user's selections.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		loadRawDataButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
@@ -191,6 +215,11 @@ public class Controller {
 		JButton loadSummaryDataButton = view.getLoadSummaryDataButton();
 		
 		loadSummaryDataButton.addActionListener(new ActionListener() {
+			
+			/**
+			 * Adds an action listener to the load summary data button to show data loaded into a table based on the user's selections.
+			 * @param e The ActionEvent object that represents the user's action taken
+			 */
 			
 			public void actionPerformed(ActionEvent e) {
 				
@@ -379,6 +408,11 @@ public class Controller {
 		
 		JButton loadChartButton = view.getLoadChartButton();
 		
+		/**
+		 * Adds an action listener to the load chart button to show data loaded into a chart based on the user's selections.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		loadChartButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -483,6 +517,11 @@ public class Controller {
 		
 		JButton loadTestButton = view.getLoadTestButton();
 		
+		/**
+		 * Adds an action listener to the load test button to show values resulting from a statistical test based on the user's selections.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		loadTestButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -569,6 +608,13 @@ public class Controller {
 	/*------------------------------------------------------------------------------------------------------------*/
 	// Error checking helper methods.
 	
+	/**
+	 * Checks if the date interval for both yearly and monthly selected from the user is valid.
+	 * @param startDate the start date selected by the user
+	 * @param endDate the end date selected by the user
+	 * @return false if the date interval is invalid. true otherwise.
+	 */
+	
 	private boolean fullDateErrorChecking(String startDate, String endDate) {
 		Integer startYear = Integer.parseInt(startDate.substring(0, 4));
 		Integer endYear = Integer.parseInt(endDate.substring(0, 4));
@@ -588,12 +634,25 @@ public class Controller {
 		return true;
 	}
 	
+	/**
+	 * Checks if the date interval for just yearly or just monthly selected from the user is valid.
+	 * @param startDate the start date selected by the user
+	 * @param endDate the end date selected by the user
+	 * @return false if the date interval is invalid. true otherwise.
+	 */
+	
 	private boolean partialDateErrorChecking(String startDate, String endDate) {
 		if (Integer.parseInt(startDate)> Integer.parseInt(endDate)) {
 			return false;
 		}
 		return true;
 	}
+	
+	/**
+	 * Checks if the user has made a selection for all fields required.
+	 * @param arg the selection made from the user
+	 * @return true if a selection is empty. false otherwise
+	 */
 	
 	private boolean emptySelectionChecking(String arg) {
 		if (arg.equals("0 - Empty")) 
