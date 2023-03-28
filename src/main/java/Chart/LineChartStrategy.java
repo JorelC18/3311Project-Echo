@@ -16,10 +16,22 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**
+ * A class that implements the ChartStrategy interface and provides a line chart strategy for drawing charts with 2 or 3 series
+ * using the JFreeChart library.
+ * @author Jorel Louie Chim
+ */
+
 public class LineChartStrategy implements ChartStrategy {
 	
 	XYSeriesCollection dataset;
 	
+	/**
+	 * Draws a line chart for 2 series based on the given ResultSet, and the 2 selections from the user.
+	 * @param result the ResultSet containing the data for the chart
+	 * @param selection1 the first series selection to display on the chart
+	 * @param selection2 the second series selection to display on the chart
+	 */
 	
 	public void drawChartFor2Series(ResultSet result, String selection1, String selection2) {
 		
@@ -96,6 +108,14 @@ public class LineChartStrategy implements ChartStrategy {
 		}
 		
 	}
+	
+	/**
+	 * Draws a bar chart for 3 series based on the given ResultSet, and the 3 selections from the user.
+	 * @param result the ResultSet containing the data for the chart
+	 * @param selection1 the first series selection to display on the chart
+	 * @param selection2 the second series selection to display on the chart
+	 * @param selection3 the third series selection to display on the chart
+	 */
 
 	public void drawChartFor3Series(ResultSet result, String selection1, String selection2,
 			String selection3) {

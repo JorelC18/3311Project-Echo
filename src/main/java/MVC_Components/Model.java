@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 import Query.Query;
 
-/*
- * Model part of MVC architecture.
- * Model - represents data that is being transferred from View and Controller parts.
+/**
+ * Model part of MVC architecture. It represents data that is being transferred from View and Controller parts.
  * The data being transferred is the SQL data.
+ * @author Jorel Louie Chim
  */
 
 public class Model {
@@ -19,17 +19,28 @@ public class Model {
 	// Instance variables for a SQL connection and query
 	private Connection connection;
 	private ResultSet rs;
-	//private String query;
 	
 	public static String url;
 	public static String username;
 	public static String password;
 	
+	/**
+	 * Gets the connection url for a database.
+	 * @param connection the connection url for the database
+	 */
+	
 	private Model(Connection connection) {
 		this.connection = connection;
 	}
 	
-	// To initialize connection to database
+	/**
+	 * Creates a connection with a database.
+	 * @param url the connection url for the database
+	 * @param username the username needed to access the database
+	 * @param password the password needed to access the database
+	 * @return a model with the connection established
+	 */
+	
 	public static Model createConnection(String url, String username, String password) {
 		Connection conn = null;
 		try {
@@ -44,7 +55,11 @@ public class Model {
 		return new Model(conn);
 	}
 	
-	// Load data from database
+	/**
+	 * Loads data from the database.
+	 * @param query the query sent by the user's selections for data
+	 */
+	
 	public void loadData(Query query) {
 		try {
 			Statement statement = connection.createStatement();
@@ -55,10 +70,19 @@ public class Model {
 		}
 	}
 	
-	// Getter method for getting data from rs (ResultSet)
+	/**
+	 * Gets data from the result set sent by the database.
+	 * @return the ResultSet from the database
+	 */
+	
 	public ResultSet getData() {
 		return rs;
 	}
+	
+	/**
+	 * Gets the connection url for the database.
+	 * @return the connection url for the database
+	 */
 	
 	public Connection getConnection() {
 		return this.connection;

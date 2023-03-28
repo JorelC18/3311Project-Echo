@@ -15,7 +15,20 @@ import javax.swing.JOptionPane;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.inference.TTest;
 
+/**
+ * A class that implements the TestStrategy interface and provides a t-test strategy for conducting t-tests with 2 queries
+ * using the Apache Math Commons Library.
+ * @author Jorel Louie Chim
+ */
+
 public class t_TestStrategy implements TestStrategy {
+	
+	/**
+	 * Performs a t-test based on the given result set, and the 2 queries given.
+	 * @param result the resultSet needed for the t-test
+	 * @param query1 the first query needed for the t-test
+	 * @param query2 the second query needed for the t-test
+	 */
 	
 	public void t_Test(ResultSet result, String query1, String query2) {
 		
