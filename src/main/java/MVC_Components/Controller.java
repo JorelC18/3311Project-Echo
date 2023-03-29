@@ -10,7 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import Chart.BarChartStrategy;
 import Chart.ChartContext;
 import Chart.LineChartStrategy;
+import Forecasting.ForecastingContext;
 import Forecasting.ForecastingStrategy;
+import Forecasting.LinearRegressionStrategy;
 import Query.Query;
 import Query.QueryFactory;
 import Test.TestContext;
@@ -614,20 +616,36 @@ public class Controller {
 
 			public void actionPerformed(ActionEvent e) {
 				
-				ForecastingStrategy Forecasting = new ForecastingStrategy();
+				ForecastingContext forecastingContext = new ForecastingContext();
+				forecastingContext.setForecastingStrategy(new LinearRegressionStrategy());
 				
 				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
 						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
 				
-					Forecasting.LinearRegressionForecasting(view.getProvinceList1().getSelectedItem().toString(), 
+					String[] provinceInput = new String[1];
+					provinceInput[0] = view.getProvinceList1().getSelectedItem().toString();
+					String startDate = view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+					String endDate = view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+					String provinceQuery = QueryFactory.createQuery("Forecasting", provinceInput, startDate, endDate).getQuery();;
+					
+					forecastingContext.LinearRegressionForecasting(provinceInput[0], provinceQuery);
+					
+					/*Forecasting.LinearRegressionForecasting(view.getProvinceList1().getSelectedItem().toString(), 
 							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
-							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));
+							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));*/
 				}
 				else {
+					String[] townInput = new String[1];
+					townInput[0] = view.getTownList1().getSelectedItem().toString();
+					String startDate = view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+					String endDate = view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2);
+					String townQuery = QueryFactory.createQuery("Forecasting", townInput, startDate, endDate).getQuery();
 					
-					Forecasting.LinearRegressionForecasting(view.getTownList1().getSelectedItem().toString(), 
+					forecastingContext.LinearRegressionForecasting(townInput[0], townQuery);
+					
+					/*Forecasting.LinearRegressionForecasting(view.getTownList1().getSelectedItem().toString(), 
 							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
-							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));
+							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));*/
 				}
 			}
 		});
