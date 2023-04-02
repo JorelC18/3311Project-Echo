@@ -424,6 +424,43 @@ public class Controller {
 				model.loadData(query);
 				ResultSet rs = model.getData();
 				
+				// Date Error Checking:
+				
+				String startDate = "";
+				String endDate = "";
+				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
+				
+				if (timeComboBoxSelection.equals("Both Monthly and Yearly")) {
+					startDate = view.getStartYearComboBox2().getSelectedItem().toString() + "-" + view.getStartMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					endDate = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					if (!fullDateErrorChecking(startDate, endDate))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}
+				} 
+				else if (timeComboBoxSelection.equals("Monthly")) {
+					String endMonth = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					String startMonth = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					String selectedYear = view.getYearComboBox().getSelectedItem().toString();
+					startDate = selectedYear + "-" + startMonth;
+					endDate = selectedYear + "-" + endMonth;
+					if (!partialDateErrorChecking(startMonth, endMonth))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}			
+				} 
+				else {
+					String endYear = view.getEndYearComboBox().getSelectedItem().toString();
+					String startYear = view.getStartYearComboBox().getSelectedItem().toString();
+					startDate = startYear + "-01";
+					endDate = endYear + "-12";
+					if (!partialDateErrorChecking(startYear, endYear))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}
+				}
+				
+				// End of Date Error Checking
 				
 				if (view.getChartTypesComboBox().getSelectedItem().equals("Line Chart")) {
 					
@@ -534,6 +571,44 @@ public class Controller {
 				model.loadData(query);
 				ResultSet rs = model.getData();
 				
+				// Date Error Checking:
+				
+				String startDateCheck = "";
+				String endDateCheck = "";
+				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
+				
+				if (timeComboBoxSelection.equals("Both Monthly and Yearly")) {
+					startDateCheck = view.getStartYearComboBox2().getSelectedItem().toString() + "-" + view.getStartMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					endDateCheck = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					if (!fullDateErrorChecking(startDateCheck, endDateCheck))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}
+				} 
+				else if (timeComboBoxSelection.equals("Monthly")) {
+					String endMonth = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					String startMonth = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					String selectedYear = view.getYearComboBox().getSelectedItem().toString();
+					startDateCheck = selectedYear + "-" + startMonth;
+					endDateCheck = selectedYear + "-" + endMonth;
+					if (!partialDateErrorChecking(startMonth, endMonth))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}			
+				} 
+				else {
+					String endYear = view.getEndYearComboBox().getSelectedItem().toString();
+					String startYear = view.getStartYearComboBox().getSelectedItem().toString();
+					startDateCheck = startYear + "-01";
+					endDateCheck = endYear + "-12";
+					if (!partialDateErrorChecking(startYear, endYear))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}
+				}
+				
+				// End of Date Error Checking
+				
 				testContext.setTestStrategy(new t_TestStrategy());
 				
 				// Display error message when either 3 provinces or 3 towns is selected
@@ -612,9 +687,52 @@ public class Controller {
 		
 		JButton loadForecastingButton = view.getLoadForecastingButton();
 		
+		/**
+		 * Adds an action listener to the load forecasting button to start a forecasting algorithm.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		loadForecastingButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				
+				// Date Error Checking:
+				
+				String startDateCheck = "";
+				String endDateCheck = "";
+				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
+				
+				if (timeComboBoxSelection.equals("Both Monthly and Yearly")) {
+					startDateCheck = view.getStartYearComboBox2().getSelectedItem().toString() + "-" + view.getStartMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					endDateCheck = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
+					if (!fullDateErrorChecking(startDateCheck, endDateCheck))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}
+				} 
+				else if (timeComboBoxSelection.equals("Monthly")) {
+					String endMonth = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					String startMonth = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
+					String selectedYear = view.getYearComboBox().getSelectedItem().toString();
+					startDateCheck = selectedYear + "-" + startMonth;
+					endDateCheck = selectedYear + "-" + endMonth;
+					if (!partialDateErrorChecking(startMonth, endMonth))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}			
+				} 
+				else {
+					String endYear = view.getEndYearComboBox().getSelectedItem().toString();
+					String startYear = view.getStartYearComboBox().getSelectedItem().toString();
+					startDateCheck = startYear + "-01";
+					endDateCheck = endYear + "-12";
+					if (!partialDateErrorChecking(startYear, endYear))  {
+						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
+						return;
+					}
+				}
+				
+				// End of Date Error Checking
 				
 				ForecastingContext forecastingContext = new ForecastingContext();
 				forecastingContext.setForecastingStrategy(new LinearRegressionStrategy());

@@ -51,7 +51,19 @@ import weka.experiment.InstanceQuery;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.RemoveWithValues;
 
+/**
+ * A class that implements the ForecastingStrategy interface and provides a linear regression strategy for performing forecasting.
+ * It involves the use of WEKA.
+ * @author Jorel Louie Chim
+ */
+
 public class LinearRegressionStrategy implements ForecastingStrategy {
+	
+	/**
+	 * Executes a linear regression algorithm for forecasting. 
+	 * @param selection1 the first selection location made by the user
+	 * @param inputQuery the query needed to be made to the database
+	 */
 
 	public void LinearRegressionForecasting(final String selection1, final String inputQuery) {
 		
