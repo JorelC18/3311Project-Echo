@@ -37,9 +37,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import com.opencsv.CSVWriter;
 
-import tech.tablesaw.api.DoubleColumn;
-import tech.tablesaw.api.StringColumn;
-import tech.tablesaw.api.Table;
 import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.SGD;
@@ -205,22 +202,7 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 				        filter.setMatchMissingValues(true);
 				        filter.setInputFormat(data);
 				        Instances filteredData = Filter.useFilter(data, filter);
-				        //System.out.println(filteredData);
-				        
-				        int dataIndex = filteredData.toString().indexOf("@data") + 5;
-				        String trimmedData = filteredData.toString().substring(dataIndex, filteredData.toString().length()).trim();
-				        String[] trimmedDataSplit = trimmedData.split("\n");
-				        Double[] values = new Double[trimmedDataSplit.length];
-				        for (int i = 0; i < trimmedDataSplit.length; i++) {
-				        	values[i] = Double.parseDouble(trimmedDataSplit[i].split(",")[1]);
-				        }
-				        
-				        Double[] valuesData = new Double[1];
-						for (int i = 0; i < values.length; i++) {
-							valuesData[0] = values[i];
-						}
-						
-						DoubleColumn columnOfValues = DoubleColumn.create("VALUES", valuesData);*/
+				        //System.out.println(filteredData);*/
 						
 						//set the class index, which is the VALUE.
 						data.setClassIndex(data.numAttributes() - 1);

@@ -122,7 +122,7 @@ public class Controller {
 				else if (timeComboBoxSelection.equals("Monthly")) {
 					String endMonth = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
 					String startMonth = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
-					String selectedYear = view.getEndYearComboBox2().getSelectedItem().toString();
+					String selectedYear = view.getYearComboBox().getSelectedItem().toString();
 					startDate = selectedYear + "-" + startMonth;
 					endDate = selectedYear + "-" + endMonth;
 					if (!partialDateErrorChecking(startMonth, endMonth))  {
@@ -180,8 +180,7 @@ public class Controller {
 					query = QueryFactory.createQuery("3 Towns", args, startDate, endDate);
 				}
 				
-				// ADD DATERRORCHECKING... GETRESULTSET, and add rs to table.
-				
+				System.out.println(query.getQuery());
 				model.loadData(query);
 				result = model.getData();
 				
@@ -256,7 +255,7 @@ public class Controller {
 				else if (timeComboBoxSelection.equals("Monthly")) {
 					String endMonth = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
 					String startMonth = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
-					String selectedYear = view.getEndYearComboBox2().getSelectedItem().toString();
+					String selectedYear = view.getYearComboBox().getSelectedItem().toString();
 					startDate = selectedYear + "-" + startMonth;
 					endDate = selectedYear + "-" + endMonth;
 					if (!partialDateErrorChecking(startMonth, endMonth))  {
@@ -353,6 +352,7 @@ public class Controller {
 					s3MaxHeader = view.getThreeTownList3().getSelectedItem() + " Max";
 				}
 				
+				System.out.println(summaryQuery.getQuery());
 				model.loadData(summaryQuery);
 				result2 = model.getData();
 				DefaultTableModel tableModel = new DefaultTableModel();

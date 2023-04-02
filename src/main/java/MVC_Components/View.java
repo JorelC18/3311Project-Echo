@@ -1131,6 +1131,10 @@ public class View extends JFrame {
 	public JComboBox<String> getThreeTownList3() {
 		return threeTownList3;
 	}
+	
+	public JComboBox<String> getYearComboBox() {
+		return yearComboBox;
+	}
 
 
 }
