@@ -15,7 +15,8 @@ import java.sql.SQLException;
 public class SQLConnection {
 	
 	/**
-	 * Main executable method to create a SQL data table.
+	 * Main executable method to launch the program.
+	 * @param args main arguments
 	 */
 	
 	public static void main(String[] args) {

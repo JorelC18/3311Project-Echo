@@ -41,7 +41,6 @@ public class Controller {
 	
 	public Controller(final View view, final Model model) {
 		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// Change drop down menus based on geographical parameter selection.
 		
 		JComboBox<String> geographicalParametersComboBox = view.getGeographicalParametersComboBox();
@@ -66,9 +65,6 @@ public class Controller {
 			}
 		});
 		
-		/*------------------------------------------------------------------------------------------------------------*/
-		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// Change drop down menus based on time granularity parameter selection.
 		
 		JComboBox<String> timeGranularityComboBox = view.getTimeGranularityComboBox();
@@ -91,9 +87,6 @@ public class Controller {
 			}
 		});
 		
-		/*------------------------------------------------------------------------------------------------------------*/
-		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// Process raw data.
 		
 		JButton loadRawDataButton = view.getLoadRawDataButton();
@@ -201,17 +194,9 @@ public class Controller {
 				view.getTablePanel().repaint();
 				view.getCardLayout3().show(view.getTablePanel(), "Raw Data");
 				
-				/*System.out.println("-------------------------------------------------");
-				System.out.println(startDate);
-				System.out.println(endDate);
-				System.out.println(args[0] + " " + args[1] + " " + args[2]);
-				System.out.println("-------------------------------------------------");*/
 			}
 		});
 		
-		/*------------------------------------------------------------------------------------------------------------*/
-		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// Process summary data.
 		
 		JButton loadSummaryDataButton = view.getLoadSummaryDataButton();
@@ -396,17 +381,9 @@ public class Controller {
 				view.getTablePanel().repaint();
 				view.getCardLayout3().show(view.getTablePanel(), "Summary Data");
 				
-				/*System.out.println("-------------------------------------------------");
-				System.out.println(s1MaxHeader);
-				System.out.println(result2.toString());
-				System.out.println(startDate);
-				System.out.println(endDate);
-				System.out.println(args[0] + " " + args[1]);
-				System.out.println("-------------------------------------------------");*/
 			}
 		});
 		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// Process chart data.
 		
 		JButton loadChartButton = view.getLoadChartButton();
@@ -553,7 +530,6 @@ public class Controller {
 			}
 		});
 		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// T-Testing
 		
 		JButton loadTestButton = view.getLoadTestButton();
@@ -639,12 +615,6 @@ public class Controller {
 						String query2 = QueryFactory.createQuery("t_Test", provinceInput2, startDate, endDate).getQuery();
 						
 						testContext.t_Test(rs, query1, query2);
-						
-						/*testContext.t_Test(rs, view.getProvinceList1().getSelectedItem().toString(),
-								view.getProvinceList2().getSelectedItem().toString(),
-								view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
-							    view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2)
-						);*/
 					
 						
 				}
@@ -669,11 +639,6 @@ public class Controller {
 						
 						testContext.t_Test(rs, query1, query2);
 						
-						/*testContext.t_Test(rs, view.getTownList1().getSelectedItem().toString(),
-								view.getTownList2().getSelectedItem().toString(),
-								view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
-							    view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2)
-							    );*/
 					}
 				}
 				
@@ -682,7 +647,6 @@ public class Controller {
 			
 		});
 		
-		/*------------------------------------------------------------------------------------------------------------*/
 		// Forecasting
 		
 		JButton loadForecastingButton = view.getLoadForecastingButton();
@@ -748,9 +712,6 @@ public class Controller {
 					
 					forecastingContext.LinearRegressionForecasting(provinceInput[0], provinceQuery);
 					
-					/*Forecasting.LinearRegressionForecasting(view.getProvinceList1().getSelectedItem().toString(), 
-							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
-							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));*/
 				}
 				else {
 					String[] townInput = new String[1];
@@ -761,16 +722,12 @@ public class Controller {
 					
 					forecastingContext.LinearRegressionForecasting(townInput[0], townQuery);
 					
-					/*Forecasting.LinearRegressionForecasting(view.getTownList1().getSelectedItem().toString(), 
-							view.endYearComboBox2.getSelectedItem().toString() + "-" + view.endMonthComboBox2.getSelectedItem().toString().substring(0, 2),
-							view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2));*/
 				}
 			}
 		});
 		
 	}
 	
-	/*------------------------------------------------------------------------------------------------------------*/
 	// Error checking helper methods.
 	
 	/**
@@ -827,5 +784,4 @@ public class Controller {
 		
 		
 	}
-	
 }

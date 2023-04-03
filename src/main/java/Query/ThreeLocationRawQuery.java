@@ -37,11 +37,6 @@ public class ThreeLocationRawQuery implements Query {
 	 */
 	
 	public String getQuery() {
-		/*System.out.println("SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\"" 
-		+ " OR GEO LIKE \"%" + selection2 + "%\"" 
-		+ " OR GEO LIKE \"%" + selection3 + "%\")"
-		+ " AND (REF_DATE <= " + "\"" + endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");");*/
-
 		return "SELECT * FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\"" 
 		+ " OR GEO LIKE \"%" + selection2 + "%\"" 
 		+ " OR GEO LIKE \"%" + selection3 + "%\")"
