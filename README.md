@@ -1,6 +1,6 @@
 # Description
 
-NHPI Visualizer is a project for a course in software design. It uses Java Swing, the Apache Commons Math Library, WEKA, JFreeChart and a SQL database.
+NHPI Visualizer is a project for a York University course in software design called EECS 3311. It uses Java Swing, the Apache Commons Math Library, WEKA, JFreeChart and a SQL database.
 
 ## How To Use:
 
