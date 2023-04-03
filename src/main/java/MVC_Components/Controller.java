@@ -701,8 +701,7 @@ public class Controller {
 				ForecastingContext forecastingContext = new ForecastingContext();
 				forecastingContext.setForecastingStrategy(new LinearRegressionStrategy());
 				
-				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
-						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
+				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
 				
 					String[] provinceInput = new String[1];
 					provinceInput[0] = view.getProvinceList1().getSelectedItem().toString();
@@ -713,7 +712,7 @@ public class Controller {
 					forecastingContext.LinearRegressionForecasting(provinceInput[0], provinceQuery);
 					
 				}
-				else {
+				else if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
 					String[] townInput = new String[1];
 					townInput[0] = view.getTownList1().getSelectedItem().toString();
 					String startDate = view.startYearComboBox2.getSelectedItem().toString() + "-" + view.startMonthComboBox2.getSelectedItem().toString().substring(0, 2);
@@ -721,7 +720,10 @@ public class Controller {
 					String townQuery = QueryFactory.createQuery("Forecasting", townInput, startDate, endDate).getQuery();
 					
 					forecastingContext.LinearRegressionForecasting(townInput[0], townQuery);
-					
+				}
+				else {
+					JOptionPane.showMessageDialog(view.getFrame(), "Please select 2 provinces or 2 towns.");
+					return;
 				}
 			}
 		});
