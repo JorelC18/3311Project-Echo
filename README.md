@@ -11,26 +11,33 @@ Input your own SQL url, username, and password in both the MainTest class and th
 Then run MainTest.java to see the GUI and start the program.
 
 ```java
-package NHPIVisualizer;
+package SQLConnection;
 
-// Run this class to start the program / software
+import MVC_Components.Controller;
+import MVC_Components.Model;
+import MVC_Components.View;
+
+/**
+ * Main executable class.
+ * @author Jorel Louie Chim
+ */
 
 public class MainTest {
+	
+	/**
+	 * Main executable method to launch the program.
+	 * @param args main arguments
+	 */
 
 	public static void main(String[] args) {
 		
-		/*
-		 * Set your url, username and password below for your database (SQL):
-		 */
-		
 		String url = "jdbc:mysql://localhost:3306/echodata";
 		String username = "root";
-		String password = "123456jj";
+		String password = "password";
 		
-		GUIModel model = GUIModel.createConnection(url, username, password);
-		GUIView view = new GUIView();
-		GUIController controller = new GUIController(view, model);
-		System.out.println(controller);
+		Model model = Model.createConnection(url, username, password);
+		View view = new View();
+		Controller controller = new Controller(view, model);
 	}
 
 }
