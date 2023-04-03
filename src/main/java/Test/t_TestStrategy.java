@@ -44,16 +44,6 @@ public class t_TestStrategy implements TestStrategy {
 			ResultSet rs1;
 			ResultSet rs2;
 			
-			/*String query1 = "SELECT VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
-					endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
-			ResultSet rs1;
-			System.out.println(query1);
-			
-			String query2 = "SELECT VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + selection2 + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
-					endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
-			ResultSet rs2;
-			System.out.println(query2);*/
-			
 			ArrayList<Double> resultSample1 = new ArrayList<Double>();
 			Statement statement1 = connection.prepareStatement(query1);
 			rs1 = statement1.executeQuery(query1);
@@ -96,9 +86,6 @@ public class t_TestStrategy implements TestStrategy {
 			}
 			DescriptiveStatistics stats2 = new DescriptiveStatistics(result2);
 			
-			/*System.out.println(stats1.getN());
-			System.out.println(stats2.getN());*/
-			
 			//t_Test formula performing
 			double degreesOfFreedom = stats1.getN() + stats2.getN() - 2;
 			if (degreesOfFreedom <= 0) {
@@ -116,7 +103,7 @@ public class t_TestStrategy implements TestStrategy {
 					statement = new JLabel("We can not reject the null hypothesis.");
 				}
 				
-				//create label for result
+				//Create label for result
 				degreesOfFreedomResult = new JLabel(Double.toString(degreesOfFreedom));
 				tResult = new JLabel(Double.toString(t));
 				pResult = new JLabel(Double.toString(p));

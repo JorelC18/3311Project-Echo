@@ -214,8 +214,7 @@ public class View extends JFrame {
 		townNames.add("Winnipeg");
         townNames.sort(null);
         
-        // Monthly, Yearly or Both:
-        // Add only "Monthly" and "Yearly" as time goes on.
+        // Time Granularity Options:
         String[] timeGranularity = {"Both Monthly and Yearly", "Monthly", "Yearly"};
         
         // Start & End Months:
@@ -1131,6 +1130,11 @@ public class View extends JFrame {
 	public JComboBox<String> getThreeTownList3() {
 		return threeTownList3;
 	}
+	
+	/**
+     * Method to get a reference to the year combo box.
+     * @return the year combo box
+     */
 	
 	public JComboBox<String> getYearComboBox() {
 		return yearComboBox;

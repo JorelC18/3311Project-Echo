@@ -84,11 +84,6 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 		JLabel Ridge = new JLabel("Number of Ridge: ");
 		final JTextField inputRidge = new JTextField("0.1");
 		JTextArea reminder = new JTextArea("Reminder: Month 2 to 12, \nDecimalPlaces 1 to 10,\nRidge 0 to 1 exclusive ");
-		//JLabel convergenceThreshold = new JLabel("Convergence Threshold: ");
-		//final JTextField inputThreshold = new JTextField("0.01");
-		//JLabel chartTypeLabel = new JLabel("Show Result in Which: ");
-		//String[] chartTypes = {"Line Chart", "Bar Chart"};
-		//JComboBox<String> chartTypesComboBox = new JComboBox<String>(chartTypes);
 		JButton showData = new JButton("Show Data");
 		
 		// Setup Panels
@@ -110,10 +105,6 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 	    Ridge.setBounds(20, 130, 150, 30);
 	    inputRidge.setBounds(170, 130, 130, 30);
 	    reminder.setBounds(20, 170, 350, 60);
-	    //convergenceThreshold.setBounds(20, 170, 350, 30);
-	    //inputThreshold.setBounds(170, 170, 130, 30);
-	    // chartTypeLabel.setBounds(20, 210, 150, 30);
-	    // chartTypesComboBox.setBounds(170, 210, 130, 30);
 	    showData.setBounds(85, 270, 130, 30);
 		westPanel.add(forecasting);	
 		westPanel.add(inputMonths);	
@@ -122,10 +113,6 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 		westPanel.add(Ridge);	
 		westPanel.add(inputRidge);	
 		westPanel.add(reminder);
-		//westPanel.add(convergenceThreshold);	
-		//westPanel.add(inputThreshold);
-		//westPanel.add(chartTypeLabel);
-		//westPanel.add(chartTypesComboBox);
 		westPanel.add(showData);
 		westPanel.setLayout(null);
 		westPanel.setPreferredSize(new Dimension(300, 100));
@@ -140,6 +127,11 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 		frame.add(eastPanel, BorderLayout.EAST);
 		frame.add(southPanel, BorderLayout.SOUTH);
 		
+		/**
+		 * Adds an action listener to the show data button to start a linear regression forecasting algorithm.
+		 * @param e The ActionEvent object that represents the user's action taken
+		 */
+		
 		// Implement the actionListener to start forecasting
 		showData.addActionListener(new ActionListener() {
 
@@ -148,7 +140,6 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 				int month = Integer.parseInt(inputMonths.getText());
 				int DecimalPlaces = Integer.parseInt(inputDecimalPlaces.getText());
 				double Ridge = Double.parseDouble(inputRidge.getText());
-				// Double threshold = Double.parseDouble(inputThreshold.getText());
 				
 				
 				if (month <= 1 || month > 12 || DecimalPlaces < 1 || DecimalPlaces > 10 || Ridge <= 0 || Ridge > 1 ) {
@@ -174,7 +165,6 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 				        filter.setMatchMissingValues(true);
 				        filter.setInputFormat(rawData);
 				        Instances filteredData = Filter.useFilter(rawData, filter);
-				        //System.out.println(filteredData);
 						
 						int dataIndex = filteredData.toString().indexOf("@data") + 5;
 				        String trimmedData = filteredData.toString().substring(dataIndex, filteredData.toString().length()).trim();
@@ -198,28 +188,11 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 						loader.setSource(new File("src/forecastingResults.csv"));
 						Instances data = loader.getDataSet();
 						
-						/*// Using a dummy test CSV file
-						CSVLoader loader = new CSVLoader();
-						loader.setSource(new File("test.csv"));//this is a sample file in the src/main/resources
-						Instances data = loader.getDataSet();*/
 						
-						/*InstanceQuery query = new InstanceQuery();
-						query.setDatabaseURL("jdbc:mysql://localhost:3306/echodata");
-						query.setUsername("root");
-						query.setPassword("password");
-						query.setQuery(inputQuery);
-						Instances data = query.retrieveInstances();
-						RemoveWithValues filter = new RemoveWithValues();
-				        filter.setAttributeIndex("2");
-				        filter.setMatchMissingValues(true);
-				        filter.setInputFormat(data);
-				        Instances filteredData = Filter.useFilter(data, filter);
-				        //System.out.println(filteredData);*/
-						
-						//set the class index, which is the VALUE.
+						//Set the class index, which is the VALUE.
 						data.setClassIndex(data.numAttributes() - 1);
 						
-						//do the linear regression to predict
+						//Do the linear regression to predict
 						LinearRegression model = new LinearRegression();
 						model.setNumDecimalPlaces(DecimalPlaces);
 						model.setRidge(Ridge);
@@ -228,7 +201,7 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 						model.buildClassifier(data);
 						System.out.println(model.toString());
 						
-						//show the result in southPanel. 
+						//Show the result in southPanel. 
 						DecimalFormat df = new DecimalFormat("#0.0000");
 						JLabel regressionResult = new JLabel(model.toString() + "  ");
 						regressionResult.setBounds(150,0, 700, 30);
@@ -240,7 +213,7 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 						southPanel.add(MeanError);
 						southPanel.add(R_squared);
 						
-						//save the predicted result to a instance so the chart can load data.
+						//Save the predicted result to a instance so the chart can load data.
 						Instances newData = new Instances(data, month); 
 						for(int i = 0; i < month; i++){
 							Instance instance = new DenseInstance(2);
@@ -248,7 +221,7 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 							newData.add(instance);
 						}
 						
-						//show the result as a chart in eastPanel
+						//Show the result as a chart in eastPanel
 						XYSeries series = new XYSeries("Predicted Value");
 						for (int i = 0; i < newData.numInstances(); i++) {
 						    double predictedValue = model.classifyInstance(newData.instance(i));

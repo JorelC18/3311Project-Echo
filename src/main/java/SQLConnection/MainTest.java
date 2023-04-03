@@ -13,6 +13,7 @@ public class MainTest {
 	
 	/**
 	 * Main executable method to launch the program.
+	 * @param args main arguments
 	 */
 
 	public static void main(String[] args) {
