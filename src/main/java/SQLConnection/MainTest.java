@@ -1,6 +1,6 @@
 package SQLConnection;
 
-import MVC_Components.Controller;
+import Controllers.PrimaryController;
 import MVC_Components.Model;
 import MVC_Components.View;
 
@@ -24,7 +24,7 @@ public class MainTest {
 		
 		Model model = Model.createConnection(url, username, password);
 		View view = new View();
-		Controller controller = new Controller(view, model);
+		PrimaryController controller = new PrimaryController(view, model);
 	}
 
 }

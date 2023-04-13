@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Query.Query;
+import Query.QueryInterface;
 
 /**
  * Model part of MVC architecture. It represents data that is being transferred from View and Controller parts.
@@ -60,7 +60,7 @@ public class Model {
 	 * @param query the query sent by the user's selections for data
 	 */
 	
-	public void loadData(Query query) {
+	public void loadData(QueryInterface query) {
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query.getQuery());

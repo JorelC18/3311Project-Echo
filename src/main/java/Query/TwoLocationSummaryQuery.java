@@ -6,26 +6,17 @@ package Query;
  *
  */
 
-public class TwoLocationSummaryQuery implements Query {
+public class TwoLocationSummaryQuery implements QueryInterface {
 	
-	private String selection1;
-	private String selection2;
-	private String startDate;
-	private String endDate;
+	private Query query;
 	
 	/**
 	 * Constructor to set all instance variables.
-	 * @param selection1 first location selected by the user
-	 * @param selection2 second location selected by the user
-	 * @param startDate start date selected by the user
-	 * @param endDate end date selected by the user
+	 * @param Query object created by user with correct parameters
 	 */
 	
-	public TwoLocationSummaryQuery(String selection1, String selection2, String startDate, String endDate) {
-		this.selection1 = selection1;
-		this.selection2 = selection2;
-		this.startDate = startDate;
-		this.endDate = endDate;
+	public TwoLocationSummaryQuery(Query query) {
+		this.query = query;
 	}
 	
 	/**
@@ -34,13 +25,13 @@ public class TwoLocationSummaryQuery implements Query {
 	 */
 	
 	public String getQuery() {
-		return "SELECT * FROM (SELECT FORMAT(AVG(VALUE), 2) AS \"" + selection1 + " Average\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate +"\")) AS A,\r\n"
-				+ "(SELECT FORMAT(AVG(VALUE), 2) AS \"" + selection2 +" Average\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection2 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS B,\r\n"
-				+ "(SELECT FORMAT(STDDEV(VALUE), 2) AS \"" + selection1 + " Standard Deviation\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS C,\r\n"
-				+ "(SELECT FORMAT(STDDEV(VALUE), 2) AS \"" + selection2 + " Standard Deviation\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection2 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS D,\r\n"
-				+ "(SELECT MIN(VALUE) AS \"" + selection1 + " Min\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS E,\r\n"
-				+ "(SELECT MAX(VALUE) AS \"" + selection1 + " Max\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS F,\r\n"
-				+ "(SELECT MIN(VALUE) AS \"" + selection2 + " Min\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection2 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS G,\r\n"
-				+ "(SELECT MAX(VALUE) AS \"" + selection2 + " Max\" FROM echodata.echodata WHERE (GEO LIKE \"%" + selection2 + "%\") AND (REF_DATE <= \"" + endDate + "\" AND REF_DATE >= \"" + startDate + "\")) AS H;";
+		return "SELECT * FROM (SELECT FORMAT(AVG(VALUE), 2) AS \"" + query.getArg1() + " Average\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg1() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() +"\")) AS A,\r\n"
+				+ "(SELECT FORMAT(AVG(VALUE), 2) AS \"" + query.getArg2() +" Average\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg2() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS B,\r\n"
+				+ "(SELECT FORMAT(STDDEV(VALUE), 2) AS \"" + query.getArg1() + " Standard Deviation\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg1() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS C,\r\n"
+				+ "(SELECT FORMAT(STDDEV(VALUE), 2) AS \"" + query.getArg2() + " Standard Deviation\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg2() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS D,\r\n"
+				+ "(SELECT MIN(VALUE) AS \"" + query.getArg1() + " Min\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg1() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS E,\r\n"
+				+ "(SELECT MAX(VALUE) AS \"" + query.getArg1() + " Max\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg1() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS F,\r\n"
+				+ "(SELECT MIN(VALUE) AS \"" + query.getArg2() + " Min\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg2() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS G,\r\n"
+				+ "(SELECT MAX(VALUE) AS \"" + query.getArg2() + " Max\" FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg2() + "%\") AND (REF_DATE <= \"" + query.getEndDate() + "\" AND REF_DATE >= \"" + query.getStartDate() + "\")) AS H;";
 	}
 }

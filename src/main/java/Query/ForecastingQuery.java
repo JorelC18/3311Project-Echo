@@ -5,23 +5,17 @@ package Query;
  * @author Jorel Louie Chim
  */
 
-public class ForecastingQuery implements Query {
+public class ForecastingQuery implements QueryInterface {
 	
-	private String selection1;
-	private String startDate;
-	private String endDate;
+	private Query query;
 	
 	/**
 	 * Constructor to set all instance variables.
-	 * @param selection1 first location selected by the user
-	 * @param startDate start date selected by the user
-	 * @param endDate end date selected by the user
+	 * @param Query object created by user with correct parameters
 	 */
 	
-	public ForecastingQuery(String selection1, String startDate, String endDate) {
-		this.selection1 = selection1;
-		this.startDate = startDate;
-		this.endDate = endDate;
+	public ForecastingQuery(Query query) {
+		this.query = query;
 	}
 	
 	/**
@@ -30,7 +24,7 @@ public class ForecastingQuery implements Query {
 	 */
 	
 	public String getQuery() {
-		return "SELECT REF_DATE, VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + selection1 + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
-		endDate + "\" AND REF_DATE >= " + "\"" + startDate + "\");";
+		return "SELECT REF_DATE, VALUE FROM echodata.echodata WHERE (GEO LIKE \"%" + query.getArg1() + "%\"" + ")" + " AND (REF_DATE <= " + "\"" + 
+		query.getEndDate() + "\" AND REF_DATE >= " + "\"" + query.getStartDate() + "\");";
 	}
 }

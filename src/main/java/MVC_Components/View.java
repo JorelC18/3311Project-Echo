@@ -26,7 +26,7 @@ public class View extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
-	// Main frame
+	// Frame
 	private JFrame frame;
 	
 	// Panels
@@ -113,11 +113,10 @@ public class View extends JFrame {
     public View() {
     	
     	// JFrame:
-		frame = new JFrame("NHPI Visualizer");
+    	frame = new JFrame("NHPI Visualizer");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
-		//frame.setSize(800, 800);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -391,9 +390,7 @@ public class View extends JFrame {
 		buttonsPanel.add(loadForecastingButton);
 		
 		frame.add(buttonsPanel, BorderLayout.SOUTH);
-		
-		
-		
+	
 		frame.pack();
 		
     }
@@ -402,11 +399,10 @@ public class View extends JFrame {
      * Method to get a reference to the frame.
      * @return the frame
      */
-
-	public JFrame getFrame() {
+    public JFrame getFrame() {
 		return frame;
 	}
-
+	
 
 	 /**
      * Method to get a reference to the geographical parameters panel.

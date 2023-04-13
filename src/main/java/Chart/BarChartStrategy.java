@@ -19,17 +19,22 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class BarChartStrategy implements ChartStrategy {
 	
 	DefaultCategoryDataset dataset;
+	ResultSet result;
+	String selection1;
+	String selection2;
+	String selection3;
 	
 	/**
 	 * Draws a bar chart for 2 series based on the given ResultSet, and the 2 selections from the user.
-	 * @param result the ResultSet containing the data for the chart
-	 * @param selection1 the first series selection to display on the chart
-	 * @param selection2 the second series selection to display on the chart
+	 * @param chartData a chart data object containing the result set and selections
 	 */
 	
-	public void drawChartFor2Series(ResultSet result, String selection1, String selection2) {
+	public void drawChartFor2Series(ChartData chartData) {
 		
 		dataset = new DefaultCategoryDataset();
+		result = chartData.getResultSet();
+		selection1 = chartData.getSelection1();
+		selection2 = chartData.getSelection2();
 		
 		try {
 			while (result.next()) {
@@ -78,16 +83,16 @@ public class BarChartStrategy implements ChartStrategy {
 	
 	/**
 	 * Draws a bar chart for 2 series based on the given ResultSet, and the 3 selections from the user.
-	 * @param result the ResultSet containing the data for the chart
-	 * @param selection1 the first series selection to display on the chart
-	 * @param selection2 the second series selection to display on the chart
-	 * @param selection3 the third series selection to display on the chart
+	 * @param chartData a chart data object containing the result set and selections
 	 */
 
-	public void drawChartFor3Series(ResultSet result, String selection1, String selection2,
-			String selection3) {
+	public void drawChartFor3Series(ChartData chartData) {
 		
 		dataset = new DefaultCategoryDataset();
+		result = chartData.getResultSet();
+		selection1 = chartData.getSelection1();
+		selection2 = chartData.getSelection2();
+		selection3 = chartData.getSelection3();
 		
 		try {
 			while (result.next()) {

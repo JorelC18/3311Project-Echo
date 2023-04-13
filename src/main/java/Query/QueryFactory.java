@@ -16,24 +16,31 @@ public class QueryFactory {
 	 * @return a new query object depending on the query type
 	 */
 	
-	public static Query createQuery(String queryType, String[] args, String startDate, String endDate) {		
+	public static QueryInterface createQuery(String queryType, String[] args, String startDate, String endDate) {		
+		Query query;
 		if (queryType.equals("2 Provinces") || queryType.equals("2 Towns")) {
-			return new TwoLocationRawQuery(args[0], args[1], startDate, endDate);
+			query = new Query(args[0], args[1], startDate, endDate);
+			return new TwoLocationRawQuery(query);
 		}
 		else if (queryType.equals("3 Provinces") || queryType.equals("3 Towns")) {
-			return new ThreeLocationRawQuery(args[0], args[1], args[2], startDate, endDate);
+			query = new Query(args[0], args[1], args[2], startDate, endDate);
+			return new ThreeLocationRawQuery(query);
 		}
 		else if (queryType.equals("2 Summary")) {
-			return new TwoLocationSummaryQuery(args[0], args[1], startDate, endDate);
+			query = new Query(args[0], args[1], startDate, endDate);
+			return new TwoLocationSummaryQuery(query);
 		}
 		else if (queryType.equals("3 Summary")) {
-			return new ThreeLocationSummaryQuery(args[0], args[1], args[2], startDate, endDate);
+			query = new Query(args[0], args[1], args[2], startDate, endDate);
+			return new ThreeLocationSummaryQuery(query);
 		}
 		else if (queryType.equals("t_Test")) {
-			return new t_TestQuery(args[0], startDate, endDate);
+			query = new Query(args[0], startDate, endDate);
+			return new t_TestQuery(query);
 		}
 		else if (queryType.equals("Forecasting")) {
-			return new ForecastingQuery(args[0], startDate, endDate);
+			query = new Query(args[0], startDate, endDate);
+			return new ForecastingQuery(query);
 		}
 		else {
 			throw new IllegalArgumentException("Wrong query type");
