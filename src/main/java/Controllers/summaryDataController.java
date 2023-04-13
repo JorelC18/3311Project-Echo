@@ -3,12 +3,17 @@ package Controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import MVC_Components.Model;
 import MVC_Components.View;
+import Panels.BothMonthlyAndYearlyPanel;
+import Panels.MonthlyPanel;
+import Panels.TimePanel;
+import Panels.YearlyPanel;
 import Query.QueryInterface;
 import Query.QueryFactory;
 
@@ -47,35 +52,13 @@ public class summaryDataController {
 				String endDate = "";
 				QueryInterface summaryQuery;
 				
-				if (timeComboBoxSelection.equals("Both Monthly and Yearly")) {
-					startDate = view.getStartYearComboBox2().getSelectedItem().toString() + "-" + view.getStartMonthComboBox2().getSelectedItem().toString().substring(0, 2);
-					endDate = view.getEndYearComboBox2().getSelectedItem().toString() + "-" + view.getEndMonthComboBox2().getSelectedItem().toString().substring(0, 2);
-					if (!dateErrorChecking.fullDateErrorChecking(startDate, endDate))  {
-						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
-						return;
-					}
-				} 
-				else if (timeComboBoxSelection.equals("Monthly")) {
-					String endMonth = view.getEndMonthComboBox().getSelectedItem().toString().substring(0, 2);
-					String startMonth = view.getStartMonthComboBox().getSelectedItem().toString().substring(0, 2);
-					String selectedYear = view.getYearComboBox().getSelectedItem().toString();
-					startDate = selectedYear + "-" + startMonth;
-					endDate = selectedYear + "-" + endMonth;
-					if (!dateErrorChecking.partialDateErrorChecking(startMonth, endMonth))  {
-						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
-						return;
-					}			
-				} 
-				else {
-					String endYear = view.getEndYearComboBox().getSelectedItem().toString();
-					String startYear = view.getStartYearComboBox().getSelectedItem().toString();
-					startDate = startYear + "-01";
-					endDate = endYear + "-12";
-					if (!dateErrorChecking.partialDateErrorChecking(startYear, endYear))  {
-						JOptionPane.showMessageDialog(view.getFrame(), "Please enter a valid combination of dates.");
-						return;
-					}
-				}
+				HashMap<String, TimePanel> timeGranularityMap = new HashMap<String, TimePanel>();
+				timeGranularityMap.put("Both Monthly and Yearly", new BothMonthlyAndYearlyPanel());
+				timeGranularityMap.put("Monthly", new MonthlyPanel());
+				timeGranularityMap.put("Yearly", new YearlyPanel());
+				startDate = timeGranularityMap.get(timeComboBoxSelection).getStartDate(view);
+				endDate = timeGranularityMap.get(timeComboBoxSelection).getEndDate(view);
+				timeGranularityMap.get(timeComboBoxSelection).dateErrorChecking(view, startDate, endDate);
 				
 				if (geoComboBoxSelection.equals("2 Provinces"))  {
 					args[0] = view.getProvinceList1().getSelectedItem().toString();

@@ -10,11 +10,12 @@ import javax.swing.*;
 import MVC_Components.Model;
 import MVC_Components.View;
 import Panels.BothMonthlyAndYearlyPanel;
-import Panels.ComboBoxPanel;
+import Panels.GeoPanel;
 import Panels.MonthlyPanel;
 import Panels.ProvincePanel;
 import Panels.ThreeProvincesPanel;
 import Panels.ThreeTownsPanel;
+import Panels.TimePanel;
 import Panels.TownPanel;
 import Panels.YearlyPanel;
 import Query.QueryInterface;
@@ -49,7 +50,7 @@ public class PrimaryController {
 		geographicalParametersComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
-				HashMap<String, ComboBoxPanel> geographicalParametersPanelMap = new HashMap<String, ComboBoxPanel>();
+				HashMap<String, GeoPanel> geographicalParametersPanelMap = new HashMap<String, GeoPanel>();
 				geographicalParametersPanelMap.put("2 Provinces", new ProvincePanel());
 			    geographicalParametersPanelMap.put("2 Towns", new TownPanel());
 			    geographicalParametersPanelMap.put("3 Provinces", new ThreeProvincesPanel());
@@ -70,7 +71,7 @@ public class PrimaryController {
 		timeGranularityComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
-				HashMap<String, ComboBoxPanel> geographicalParametersPanelMap = new HashMap<String, ComboBoxPanel>();
+				HashMap<String, TimePanel> geographicalParametersPanelMap = new HashMap<String, TimePanel>();
 				geographicalParametersPanelMap.put("Both Monthly and Yearly", new BothMonthlyAndYearlyPanel());
 			    geographicalParametersPanelMap.put("Monthly", new MonthlyPanel());
 			    geographicalParametersPanelMap.put("Yearly", new YearlyPanel());
