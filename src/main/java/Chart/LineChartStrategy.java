@@ -13,6 +13,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -25,18 +26,23 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class LineChartStrategy implements ChartStrategy {
 	
 	XYSeriesCollection dataset;
+	ResultSet result;
+	String selection1;
+	String selection2;
+	String selection3;
 	
 	/**
 	 * Draws a line chart for 2 series based on the given ResultSet, and the 2 selections from the user.
-	 * @param result the ResultSet containing the data for the chart
-	 * @param selection1 the first series selection to display on the chart
-	 * @param selection2 the second series selection to display on the chart
+	 * @param chartData a chart data object containing the result set and selections
 	 */
 	
-	public void drawChartFor2Series(ResultSet result, String selection1, String selection2) {
+	public void drawChartFor2Series(ChartData chartData) {
 		
 		try {
 			dataset = new XYSeriesCollection();
+			result = chartData.getResultSet();
+			selection1 = chartData.getSelection1();
+			selection2 = chartData.getSelection2();
 			
 			
 			XYSeries series1 = new XYSeries(selection1);
@@ -100,7 +106,6 @@ public class LineChartStrategy implements ChartStrategy {
 			frame.setVisible(true);
 			frame.setResizable(false);
 			frame.pack();
-			System.out.println("checkkk");
 			
 		}
 		catch (Exception e) {
@@ -111,18 +116,17 @@ public class LineChartStrategy implements ChartStrategy {
 	
 	/**
 	 * Draws a bar chart for 3 series based on the given ResultSet, and the 3 selections from the user.
-	 * @param result the ResultSet containing the data for the chart
-	 * @param selection1 the first series selection to display on the chart
-	 * @param selection2 the second series selection to display on the chart
-	 * @param selection3 the third series selection to display on the chart
+	 * @param chartData a chart data object containing the result set and selections
 	 */
 
-	public void drawChartFor3Series(ResultSet result, String selection1, String selection2,
-			String selection3) {
+	public void drawChartFor3Series(ChartData chartData) {
 		
 		try {
 			dataset = new XYSeriesCollection();
-			
+			result = chartData.getResultSet();
+			selection1 = chartData.getSelection1();
+			selection2 = chartData.getSelection2();
+			selection3 = chartData.getSelection3();
 			
 			XYSeries series1 = new XYSeries(selection1);
 			XYSeries series2 = new XYSeries(selection2);

@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Chart.BarChartStrategy;
 import Chart.ChartContext;
+import Chart.ChartData;
 import Chart.LineChartStrategy;
 import Forecasting.ForecastingContext;
 import Forecasting.ForecastingStrategy;
@@ -400,6 +401,7 @@ public class Controller {
 				ChartContext chartContext = new ChartContext();
 				model.loadData(query);
 				ResultSet rs = model.getData();
+				ChartData chartData;
 				
 				// Date Error Checking:
 				
@@ -452,8 +454,7 @@ public class Controller {
 								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
 								return;
 							}
-							
-							chartContext.drawChartFor2Series(rs, view.getProvinceList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getProvinceList1().getSelectedItem().toString(),
 									view.getProvinceList2().getSelectedItem().toString());
 							
 						} else {
@@ -462,9 +463,11 @@ public class Controller {
 								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
 								return;
 							}
-							chartContext.drawChartFor2Series(rs, view.getTownList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getTownList1().getSelectedItem().toString(),
 									view.getTownList2().getSelectedItem().toString());
 						}
+						
+						chartContext.drawChartFor2Series(chartData);
 						
 					} else {
 						
@@ -475,8 +478,7 @@ public class Controller {
 								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
 								return;
 							}
-							
-							chartContext.drawChartFor3Series(rs, view.getThreeProvinceList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getThreeProvinceList1().getSelectedItem().toString(),
 									view.getThreeProvinceList2().getSelectedItem().toString(),
 									view.getThreeProvinceList3().getSelectedItem().toString());
 							
@@ -487,12 +489,12 @@ public class Controller {
 								JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / raw data has not been loaded.");
 								return;
 							}
-							
-							chartContext.drawChartFor3Series(rs, view.getThreeTownList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getThreeTownList1().getSelectedItem().toString(),
 									view.getThreeTownList2().getSelectedItem().toString(),
 									view.getThreeTownList3().getSelectedItem().toString());
 						}
 						
+						chartContext.drawChartFor3Series(chartData);
 						
 					}
 					
@@ -504,24 +506,28 @@ public class Controller {
 							view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Towns")) {
 						
 						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
-							chartContext.drawChartFor2Series(rs, view.getProvinceList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getProvinceList1().getSelectedItem().toString(),
 									view.getProvinceList2().getSelectedItem().toString());
 						} else {
-							chartContext.drawChartFor2Series(rs, view.getTownList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getTownList1().getSelectedItem().toString(),
 									view.getTownList2().getSelectedItem().toString());
 						}
+						
+						chartContext.drawChartFor2Series(chartData);
 						
 					} else {
 						
 						if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces")) {
-							chartContext.drawChartFor3Series(rs, view.getThreeProvinceList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getThreeProvinceList1().getSelectedItem().toString(),
 									view.getThreeProvinceList2().getSelectedItem().toString(),
 									view.getThreeProvinceList3().getSelectedItem().toString());
 						} else {
-							chartContext.drawChartFor3Series(rs, view.getThreeTownList1().getSelectedItem().toString(),
+							chartData = new ChartData(rs, view.getThreeTownList1().getSelectedItem().toString(),
 									view.getThreeTownList2().getSelectedItem().toString(),
 									view.getThreeTownList3().getSelectedItem().toString());
 						}
+						
+						chartContext.drawChartFor3Series(chartData);
 						
 					}
 					

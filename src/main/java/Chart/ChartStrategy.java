@@ -10,19 +10,14 @@ import java.sql.ResultSet;
 public interface ChartStrategy {
 	
 	/** Draws a chart with 2 series from a result set, using the specified selections.
-	* @param result the result set containing the data for the chart
-	* @param selection1 the first selection for the chart
-	* @param selection2 the second selection for the chart
+	* @param chartData a chart data object containing the result set and selections
 	*/
 	
-	void drawChartFor2Series(ResultSet result, String selection1, String selection2);
+	void drawChartFor2Series(ChartData chartData);
 	
 	/** Draws a chart with 3 series from a result set, using the specified selections.
-	* @param result the result set containing the data for the chart
-	* @param selection1 the first selection for the chart
-	* @param selection2 the second selection for the chart
-	* @param selection3 the third selection for the chart
+	* @param chartData a chart data object containing the result set and selections
 	*/
 	
-	void drawChartFor3Series(ResultSet result, String selection1, String selection2, String selection3);
+	void drawChartFor3Series(ChartData chartData);
 }
