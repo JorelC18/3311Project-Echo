@@ -3,11 +3,20 @@ package Controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 import javax.swing.*;
 
 import MVC_Components.Model;
 import MVC_Components.View;
+import Panels.BothMonthlyAndYearlyPanel;
+import Panels.ComboBoxPanel;
+import Panels.MonthlyPanel;
+import Panels.ProvincePanel;
+import Panels.ThreeProvincesPanel;
+import Panels.ThreeTownsPanel;
+import Panels.TownPanel;
+import Panels.YearlyPanel;
 import Query.QueryInterface;
 
 /**
@@ -40,15 +49,12 @@ public class PrimaryController {
 		geographicalParametersComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
-				if (geoComboBoxSelection.equals("2 Provinces")) {
-					view.getCardLayout1().show(view.getGeographicalParametersPTSubPanel(), "Province");
-				} else if (geoComboBoxSelection.equals("2 Towns")) {
-					view.getCardLayout1().show(view.getGeographicalParametersPTSubPanel(), "Town");
-				} else if (geoComboBoxSelection.equals("3 Provinces")) {
-					view.getCardLayout1().show(view.getGeographicalParametersPTSubPanel(), "3 Provinces");
-				} else {
-					view.getCardLayout1().show(view.getGeographicalParametersPTSubPanel(), "3 Towns");
-				}
+				HashMap<String, ComboBoxPanel> geographicalParametersPanelMap = new HashMap<String, ComboBoxPanel>();
+				geographicalParametersPanelMap.put("2 Provinces", new ProvincePanel());
+			    geographicalParametersPanelMap.put("2 Towns", new TownPanel());
+			    geographicalParametersPanelMap.put("3 Provinces", new ThreeProvincesPanel());
+			    geographicalParametersPanelMap.put("3 Towns", new ThreeTownsPanel());
+			    view.getCardLayout1().show(view.getGeographicalParametersPTSubPanel(), geographicalParametersPanelMap.get(geoComboBoxSelection).getPanelName());
 			}
 		});
 		
@@ -64,13 +70,11 @@ public class PrimaryController {
 		timeGranularityComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
-				if (timeComboBoxSelection.equals("Both Monthly and Yearly")) {
-					view.getCardLayout2().show(view.getTimeParametersBMYSubPanel(), "Both");
-				} else if (timeComboBoxSelection.equals("Monthly")) {
-					view.getCardLayout2().show(view.getTimeParametersBMYSubPanel(), "Monthly");
-				} else {
-					view.getCardLayout2().show(view.getTimeParametersBMYSubPanel(), "Yearly");
-				}
+				HashMap<String, ComboBoxPanel> geographicalParametersPanelMap = new HashMap<String, ComboBoxPanel>();
+				geographicalParametersPanelMap.put("Both Monthly and Yearly", new BothMonthlyAndYearlyPanel());
+			    geographicalParametersPanelMap.put("Monthly", new MonthlyPanel());
+			    geographicalParametersPanelMap.put("Yearly", new YearlyPanel());
+			    view.getCardLayout2().show(view.getTimeParametersBMYSubPanel(), geographicalParametersPanelMap.get(timeComboBoxSelection).getPanelName());
 			}
 		});
 		
