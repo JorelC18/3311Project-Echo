@@ -8,7 +8,7 @@ public class dateErrorChecking {
 		 * @return false if the date interval is invalid. true otherwise.
 		 */
 		
-		protected static boolean fullDateErrorChecking(String startDate, String endDate) {
+		public static boolean fullDateErrorChecking(String startDate, String endDate) {
 			Integer startYear = Integer.parseInt(startDate.substring(0, 4));
 			Integer endYear = Integer.parseInt(endDate.substring(0, 4));
 			Integer startMonth = Integer.parseInt(startDate.substring(5, 7));
@@ -34,7 +34,7 @@ public class dateErrorChecking {
 		 * @return false if the date interval is invalid. true otherwise.
 		 */
 		
-		protected static boolean partialDateErrorChecking(String startDate, String endDate) {
+		public static boolean partialDateErrorChecking(String startDate, String endDate) {
 			if (Integer.parseInt(startDate)> Integer.parseInt(endDate)) {
 				return false;
 			}
@@ -47,7 +47,7 @@ public class dateErrorChecking {
 		 * @return true if a selection is empty. false otherwise
 		 */
 		
-		protected static boolean emptySelectionChecking(String arg) {
+		public static boolean emptySelectionChecking(String arg) {
 			if (arg.equals("0 - Empty")) 
 				return true;
 			
