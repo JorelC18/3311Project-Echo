@@ -41,6 +41,10 @@ public class testController {
 				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
 				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
 				String[] args;
+				String[] testInput = new String[1];
+				String[] testInput2 = new String[1];
+				String query1 = "";
+				String query2 = "";
 				String startDate = "";
 				String endDate = "";
 
@@ -70,56 +74,14 @@ public class testController {
 				
 				// Display error message when either 3 provinces or 3 towns is selected
 				if (view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Provinces") 
-						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Towns")) {
-					
+						|| view.getGeographicalParametersComboBox().getSelectedItem().equals("3 Towns")) 
 					JOptionPane.showMessageDialog(view.getFrame(), "Please select 2 provinces or 2 towns");
-					
-				}
-				else {
-					// Check if either of the two province inputs are empty
-					if (view.getGeographicalParametersComboBox().getSelectedItem().equals("2 Provinces")) {
-						if (dateErrorChecking.emptySelectionChecking(view.getProvinceList1().getSelectedItem().toString()) 
-								|| dateErrorChecking.emptySelectionChecking(view.getProvinceList2().getSelectedItem().toString())) {
-							
-							JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / test can not perform.");
-							return;
-						}
-						
-						String[] provinceInput = new String[1];
-						provinceInput[0] = view.getProvinceList1().getSelectedItem().toString();
-						String query1 = QueryFactory.createQuery("t_Test", provinceInput, startDate, endDate).getQuery();
-						
-						String[] provinceInput2 = new String[1];
-						provinceInput2[0] = view.getProvinceList2().getSelectedItem().toString();
-						String query2 = QueryFactory.createQuery("t_Test", provinceInput2, startDate, endDate).getQuery();
-						
-						testContext.t_Test(rs, query1, query2);
-					
-						
-				}
-				else {
-						// Check if either of the two town inputs are empty
-						if (dateErrorChecking.emptySelectionChecking(view.getTownList1().getSelectedItem().toString()) 
-								|| dateErrorChecking.emptySelectionChecking(view.getTownList2().getSelectedItem().toString())) {
-							
-							JOptionPane.showMessageDialog(view.getFrame(), "One or more selections are empty / test can not perform .");
-							return;
-						}
-						
-						String[] townInput = new String[1];
-						townInput[0] = view.getTownList1().getSelectedItem().toString();
-						String query1 = QueryFactory.createQuery("t_Test", townInput, startDate, endDate).getQuery();
-						
-						String[] townInput2 = new String[1];
-						townInput2[0] = view.getTownList2().getSelectedItem().toString();
-						String query2 = QueryFactory.createQuery("t_Test", townInput2, startDate, endDate).getQuery();
-						
-						testContext.t_Test(rs, query1, query2);
-						
-					}
-				}
 				
-				
+				testInput[0] = args[0];
+				testInput2[0] = args[1];
+				query1 = QueryFactory.createQuery("t_Test", testInput, startDate, endDate).getQuery();
+				query2 = QueryFactory.createQuery("t_Test", testInput2, startDate, endDate).getQuery();
+				testContext.t_Test(rs, query1, query2);	
 			}
 			
 		});
