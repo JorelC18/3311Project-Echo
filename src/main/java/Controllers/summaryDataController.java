@@ -3,6 +3,7 @@ package Controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.*;
@@ -22,10 +23,11 @@ import Panels.YearlyPanel;
 import Query.QueryInterface;
 import Query.QueryFactory;
 
-public class summaryDataController {
-	private ResultSet result;
-	private QueryInterface query;
-	
+public class summaryDataController extends Controller {
+	public summaryDataController(View view, Model model) {
+		super(view, model);
+	}
+
 	public QueryInterface processSummaryData(final View view, final Model model) {
 		JButton loadSummaryDataButton = view.getLoadSummaryDataButton();
 		
@@ -37,10 +39,6 @@ public class summaryDataController {
 			 */
 			
 			public void actionPerformed(ActionEvent e) {
-				
-				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
-				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
-				String[] args = new String[3];
 				String s1AvgHeader = "";
 				String s2AvgHeader = "";
 				String s3AvgHeader = "";
@@ -53,64 +51,49 @@ public class summaryDataController {
 				String s2MaxHeader = "";
 				String s3MinHeader = "";
 				String s3MaxHeader = "";
-				String startDate = "";
-				String endDate = "";
 				QueryInterface summaryQuery;
 				
-				HashMap<String, TimePanel> timeGranularityMap = new HashMap<String, TimePanel>();
-				timeGranularityMap.put("Both Monthly and Yearly", new BothMonthlyAndYearlyPanel());
-				timeGranularityMap.put("Monthly", new MonthlyPanel());
-				timeGranularityMap.put("Yearly", new YearlyPanel());
-				startDate = timeGranularityMap.get(timeComboBoxSelection).getStartDate(view);
-				endDate = timeGranularityMap.get(timeComboBoxSelection).getEndDate(view);
-				timeGranularityMap.get(timeComboBoxSelection).dateErrorChecking(view, startDate, endDate);
+				Controller parentController = new summaryDataController(view, model);
+				parentController.setupTimeGranularityMap();
+				parentController.setupGeoComboBoxMap();
 				
-				HashMap<String, GeoPanel> geoComboBoxMap = new HashMap<String, GeoPanel>();
-				geoComboBoxMap.put("2 Provinces", new ProvincePanel());
-			    geoComboBoxMap.put("2 Towns", new TownPanel());
-			    geoComboBoxMap.put("3 Provinces", new ThreeProvincesPanel());
-			    geoComboBoxMap.put("3 Towns", new ThreeTownsPanel());
-			    args = geoComboBoxMap.get(geoComboBoxSelection).getPreArgs(view);
-			    geoComboBoxMap.get(geoComboBoxSelection).emptySelectionChecking(view);
-				
-				if (geoComboBoxSelection.equals("2 Provinces") || geoComboBoxSelection.equals("2 Towns"))  {
+				if (parentController.geoComboBoxSelection.equals("2 Provinces") || parentController.geoComboBoxSelection.equals("2 Towns"))  {
 					
-					summaryQuery = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
+					summaryQuery = QueryFactory.createQuery("2 Summary", parentController.args, parentController.startDate, parentController.endDate);
 					
-					s1AvgHeader = args[0] + " Average";
-					s2AvgHeader = args[1] + " Average";
-					s1STDHeader = args[0] + " Standard Deviation";
-					s2STDHeader = args[1] + " Standard Deviation";
-					s1MinHeader = args[0] + " Min";
-					s1MaxHeader = args[0] + " Max";
-					s2MinHeader = args[1] + " Min";
-					s2MaxHeader = args[1] + " Max";
+					s1AvgHeader = parentController.args[0] + " Average";
+					s2AvgHeader = parentController.args[1] + " Average";
+					s1STDHeader = parentController.args[0] + " Standard Deviation";
+					s2STDHeader = parentController.args[1] + " Standard Deviation";
+					s1MinHeader = parentController.args[0] + " Min";
+					s1MaxHeader = parentController.args[0] + " Max";
+					s2MinHeader = parentController.args[1] + " Min";
+					s2MaxHeader = parentController.args[1] + " Max";
 					
 				} else {
 					
-					summaryQuery = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
+					summaryQuery = QueryFactory.createQuery("3 Summary", parentController.args, parentController.startDate, parentController.endDate);
 					
-					s1AvgHeader = args[0] + " Average";
-					s2AvgHeader = args[1] + " Average";
-					s3AvgHeader = args[2] + " Average";
-					s1STDHeader = args[0] + " Standard Deviation";
-					s2STDHeader = args[1] + " Standard Deviation";
-					s3STDHeader = args[2] + " Standard Deviation";
-					s1MinHeader = args[0] + " Min";
-					s1MaxHeader = args[0] + " Max";
-					s2MinHeader = args[1] + " Min";
-					s2MaxHeader = args[1] + " Max";
-					s3MinHeader = args[2] + " Min";
-					s3MaxHeader = args[2] + " Max";
+					s1AvgHeader = parentController.args[0] + " Average";
+					s2AvgHeader = parentController.args[1] + " Average";
+					s3AvgHeader = parentController.args[2] + " Average";
+					s1STDHeader = parentController.args[0] + " Standard Deviation";
+					s2STDHeader = parentController.args[1] + " Standard Deviation";
+					s3STDHeader = parentController.args[2] + " Standard Deviation";
+					s1MinHeader = parentController.args[0] + " Min";
+					s1MaxHeader = parentController.args[0] + " Max";
+					s2MinHeader = parentController.args[1] + " Min";
+					s2MaxHeader = parentController.args[1] + " Max";
+					s3MinHeader = parentController.args[2] + " Min";
+					s3MaxHeader = parentController.args[2] + " Max";
 					
 				} 
 				
-				System.out.println(summaryQuery.getQuery());
 				model.loadData(summaryQuery);
 				result = model.getData();
 				DefaultTableModel tableModel = new DefaultTableModel();
 				try {
-					if (geoComboBoxSelection.equals("2 Provinces") || geoComboBoxSelection.equals("2 Towns")) {
+					if (parentController.geoComboBoxSelection.equals("2 Provinces") || parentController.geoComboBoxSelection.equals("2 Towns")) {
 						tableModel.setColumnIdentifiers(new String [] {s1AvgHeader, s2AvgHeader, s1STDHeader, s2STDHeader,
 								s1MinHeader, s1MaxHeader, s2MinHeader, s2MaxHeader});
 						

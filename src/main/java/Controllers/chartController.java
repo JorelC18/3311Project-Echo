@@ -25,8 +25,10 @@ import Panels.YearlyPanel;
 import Query.QueryInterface;
 import Query.QueryFactory;
 
-public class chartController {
-	private QueryInterface query;
+public class chartController extends Controller {
+	public chartController(View view, Model model) {
+		super(view, model);
+	}
 
 	public void processCharts(final View view, final Model model) {
 		JButton loadChartButton = view.getLoadChartButton();
@@ -41,33 +43,15 @@ public class chartController {
 		loadChartButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
-				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
-				String[] args;
-				String startDate = "";
-				String endDate = "";
+				String[] args = null;
 				ChartData chartData;
-
-				HashMap<String, TimePanel> timeGranularityMap = new HashMap<String, TimePanel>();
-				timeGranularityMap.put("Both Monthly and Yearly", new BothMonthlyAndYearlyPanel());
-				timeGranularityMap.put("Monthly", new MonthlyPanel());
-				timeGranularityMap.put("Yearly", new YearlyPanel());
-				startDate = timeGranularityMap.get(timeComboBoxSelection).getStartDate(view);
-				endDate = timeGranularityMap.get(timeComboBoxSelection).getEndDate(view);
-				timeGranularityMap.get(timeComboBoxSelection).dateErrorChecking(view, startDate, endDate);
 				
+				Controller parentController = new chartController(view, model);
+				parentController.setupTimeGranularityMap();
+				parentController.setupGeoComboBoxMap();
 				
-				HashMap<String, GeoPanel> geoComboBoxMap = new HashMap<String, GeoPanel>();
-				geoComboBoxMap.put("2 Provinces", new ProvincePanel());
-			    geoComboBoxMap.put("2 Towns", new TownPanel());
-			    geoComboBoxMap.put("3 Provinces", new ThreeProvincesPanel());
-			    geoComboBoxMap.put("3 Towns", new ThreeTownsPanel());
-			    args = geoComboBoxMap.get(geoComboBoxSelection).getPreArgs(view);
-			    geoComboBoxMap.get(geoComboBoxSelection).emptySelectionChecking(view);
-				query = QueryFactory.createQuery(geoComboBoxSelection, args, startDate, endDate);
-
 				ChartContext chartContext = new ChartContext();
-				model.loadData(query);
+				model.loadData(parentController.query);
 				ResultSet rs = model.getData();
 				
 				if (view.getChartTypesComboBox().getSelectedItem().equals("Line Chart")) {
@@ -76,8 +60,8 @@ public class chartController {
 					chartContext.setChartStrategy(new BarChartStrategy());
 				}
 				
-				chartData = geoComboBoxMap.get(geoComboBoxSelection).loadChartData(view, rs, args);
-				geoComboBoxMap.get(geoComboBoxSelection).drawChart(chartContext, chartData);
+				chartData = parentController.geoComboBoxMap.get(parentController.geoComboBoxSelection).loadChartData(view, rs, args);
+				parentController.geoComboBoxMap.get(parentController.geoComboBoxSelection).drawChart(chartContext, chartData);
 			}
 		});
 	}

@@ -18,6 +18,8 @@ import Panels.ThreeTownsPanel;
 import Panels.TimePanel;
 import Panels.TownPanel;
 import Panels.YearlyPanel;
+import Query.Query;
+import Query.QueryFactory;
 import Query.QueryInterface;
 
 /**
@@ -80,23 +82,23 @@ public class PrimaryController {
 		});
 		
 		// Process raw data.
-		rawDataController rawDataController = new rawDataController();
+		rawDataController rawDataController = new rawDataController(view, model);
 		rawDataController.processRawData(view, model);
 		
 		// Process summary data.
-		summaryDataController summaryDataController = new summaryDataController();
+		summaryDataController summaryDataController = new summaryDataController(view, model);
 		summaryDataController.processSummaryData(view, model);
 		
 		// Process chart data.
-		chartController chartController = new chartController();
+		chartController chartController = new chartController(view, model);
 		chartController.processCharts(view, model);
 		
 		// T-Testing
-		testController testController = new testController();
+		testController testController = new testController(view, model);
 		testController.processTest(view, model);
 		
 		// Forecasting
-		forecastingController forecastingController = new forecastingController();
+		forecastingController forecastingController = new forecastingController(view, model);
 		forecastingController.processForecasting(view, model);
 	}
 }

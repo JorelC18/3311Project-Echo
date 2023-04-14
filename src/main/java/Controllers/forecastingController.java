@@ -22,9 +22,11 @@ import Panels.YearlyPanel;
 import Query.QueryInterface;
 import Query.QueryFactory;
 
-public class forecastingController {
-	private QueryInterface query;
-	
+public class forecastingController extends Controller {
+	public forecastingController(View view, Model model) {
+		super(view, model);
+	}
+
 	public void processForecasting(final View view, final Model model) {		
 		JButton loadForecastingButton = view.getLoadForecastingButton();
 		
@@ -36,42 +38,25 @@ public class forecastingController {
 		loadForecastingButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				String geoComboBoxSelection = view.getGeographicalParametersComboBox().getSelectedItem().toString();
-				String timeComboBoxSelection = view.getTimeGranularityComboBox().getSelectedItem().toString();
-				String[] args = new String[3];
 				String[] regInput = new String[1];
-				String startDate = "";
-				String endDate = "";
 				String regQuery = "";
 
-				HashMap<String, TimePanel> timeGranularityMap = new HashMap<String, TimePanel>();
-				timeGranularityMap.put("Both Monthly and Yearly", new BothMonthlyAndYearlyPanel());
-				timeGranularityMap.put("Monthly", new MonthlyPanel());
-				timeGranularityMap.put("Yearly", new YearlyPanel());
-				startDate = timeGranularityMap.get(timeComboBoxSelection).getStartDate(view);
-				endDate = timeGranularityMap.get(timeComboBoxSelection).getEndDate(view);
-				timeGranularityMap.get(timeComboBoxSelection).dateErrorChecking(view, startDate, endDate);
-
-				HashMap<String, GeoPanel> geoComboBoxMap = new HashMap<String, GeoPanel>();
-				geoComboBoxMap.put("2 Provinces", new ProvincePanel());
-			    geoComboBoxMap.put("2 Towns", new TownPanel());
-			    geoComboBoxMap.put("3 Provinces", new ThreeProvincesPanel());
-			    geoComboBoxMap.put("3 Towns", new ThreeTownsPanel());
-			    args = geoComboBoxMap.get(geoComboBoxSelection).getPreArgs(view);
-			    geoComboBoxMap.get(geoComboBoxSelection).emptySelectionChecking(view);
-				query = QueryFactory.createQuery(geoComboBoxSelection, args, startDate, endDate);
+				Controller parentController = new forecastingController(view, model);
+				parentController.setupTimeGranularityMap();
+				parentController.setupGeoComboBoxMap();
 				
+				query = QueryFactory.createQuery(parentController.geoComboBoxSelection, parentController.args, parentController.startDate, parentController.endDate);
 				
 				ForecastingContext forecastingContext = new ForecastingContext();
 				forecastingContext.setForecastingStrategy(new LinearRegressionStrategy());
 				
-				if (geoComboBoxSelection.equals("3 Provinces") || geoComboBoxSelection.equals("3 Towns")) {
+				if (parentController.geoComboBoxSelection.equals("3 Provinces") || parentController.geoComboBoxSelection.equals("3 Towns")) {
 					JOptionPane.showMessageDialog(view.getFrame(), "Please select 2 provinces or 2 towns.");
 					return;
 				}
 					
-				regInput[0] = args[0];
-				regQuery = QueryFactory.createQuery("Forecasting", regInput, startDate, endDate).getQuery();
+				regInput[0] = parentController.args[0];
+				regQuery = QueryFactory.createQuery("Forecasting", regInput, parentController.startDate, parentController.endDate).getQuery();
 				forecastingContext.LinearRegressionForecasting(regInput[0], regQuery);
 			}
 		});
