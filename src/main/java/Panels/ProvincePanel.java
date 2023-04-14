@@ -9,15 +9,32 @@ import Chart.ChartData;
 import Controllers.dateErrorChecking;
 import MVC_Components.View;
 
+/**
+ * This class represents a panel for displaying 2 province data.
+ * @author Jorel Louie Chim
+ *
+ */
+
 public class ProvincePanel extends GeoPanel {
 	
 	String[] args = new String[2];
 	ChartData chartData;
 	
+	/**
+	 * Returns the name of this panel.
+	 * @return a string representing the name of this panel
+	 */
+	
 	@Override
 	public String getPanelName() {
         return "Province";
     }
+	
+	/**
+	 * Returns the arguments for this panel.
+	 * @param view the view that represents the user interface
+	 * @return an string array that has the arguments
+	 */
 
 	@Override
 	public String[] getPreArgs(View view) {
@@ -25,6 +42,11 @@ public class ProvincePanel extends GeoPanel {
 		args[1] = view.getProvinceList2().getSelectedItem().toString();
 		return args;
 	}
+	
+	/**
+	 * Checks for empty selections and displays a JOptionPane if one or more selections are empty.
+	 * @param view the view that represents the user interface
+	 */
 
 	@Override
 	public void emptySelectionChecking(View view) {
@@ -41,6 +63,14 @@ public class ProvincePanel extends GeoPanel {
 			return;
 		}
 	}
+	
+	/**
+	 * Loads chart data for this panel.
+	 * @param view the view that represents the user interface
+	 * @param rs the result set containing query results
+	 * @param args the arguments for this panel
+	 * @return a chart data object containing all the data needed to draw a chart
+	 */
 
 	@Override
 	public ChartData loadChartData(View view, ResultSet rs, String[] args) {
@@ -48,6 +78,12 @@ public class ProvincePanel extends GeoPanel {
 									view.getProvinceList2().getSelectedItem().toString());
 		return chartData;
 	}
+	
+	/**
+	 * Draws a chart for this panel using the given ChartContext and chartData.
+	 * @param chartContext the chart context being used
+	 * @param chartData the chart data for the chart being created
+	 */
 
 	@Override
 	public void drawChart(ChartContext chartContext, ChartData chartData) {

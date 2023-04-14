@@ -11,8 +11,13 @@ import javax.swing.table.DefaultTableModel;
 import MVC_Components.Model;
 import MVC_Components.View;
 import Panels.BothMonthlyAndYearlyPanel;
+import Panels.GeoPanel;
 import Panels.MonthlyPanel;
+import Panels.ProvincePanel;
+import Panels.ThreeProvincesPanel;
+import Panels.ThreeTownsPanel;
 import Panels.TimePanel;
+import Panels.TownPanel;
 import Panels.YearlyPanel;
 import Query.QueryInterface;
 import Query.QueryFactory;
@@ -60,83 +65,45 @@ public class summaryDataController {
 				endDate = timeGranularityMap.get(timeComboBoxSelection).getEndDate(view);
 				timeGranularityMap.get(timeComboBoxSelection).dateErrorChecking(view, startDate, endDate);
 				
-				if (geoComboBoxSelection.equals("2 Provinces"))  {
-					args[0] = view.getProvinceList1().getSelectedItem().toString();
-					args[1] = view.getProvinceList2().getSelectedItem().toString();
-					if (dateErrorChecking.emptySelectionChecking(args[0]) || dateErrorChecking.emptySelectionChecking(args[1])) 
-						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
+				HashMap<String, GeoPanel> geoComboBoxMap = new HashMap<String, GeoPanel>();
+				geoComboBoxMap.put("2 Provinces", new ProvincePanel());
+			    geoComboBoxMap.put("2 Towns", new TownPanel());
+			    geoComboBoxMap.put("3 Provinces", new ThreeProvincesPanel());
+			    geoComboBoxMap.put("3 Towns", new ThreeTownsPanel());
+			    args = geoComboBoxMap.get(geoComboBoxSelection).getPreArgs(view);
+			    geoComboBoxMap.get(geoComboBoxSelection).emptySelectionChecking(view);
+				
+				if (geoComboBoxSelection.equals("2 Provinces") || geoComboBoxSelection.equals("2 Towns"))  {
+					
 					summaryQuery = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
 					
-					s1AvgHeader = view.getProvinceList1().getSelectedItem() + " Average";
-					s2AvgHeader = view.getProvinceList2().getSelectedItem() + " Average";
-					s1STDHeader = view.getProvinceList1().getSelectedItem() + " Standard Deviation";
-					s2STDHeader = view.getProvinceList2().getSelectedItem() + " Standard Deviation";
-					s1MinHeader = view.getProvinceList1().getSelectedItem() + " Min";
-					s1MaxHeader = view.getProvinceList1().getSelectedItem() + " Max";
-					s2MinHeader = view.getProvinceList2().getSelectedItem() + " Min";
-					s2MaxHeader = view.getProvinceList2().getSelectedItem() + " Max";
+					s1AvgHeader = args[0] + " Average";
+					s2AvgHeader = args[1] + " Average";
+					s1STDHeader = args[0] + " Standard Deviation";
+					s2STDHeader = args[1] + " Standard Deviation";
+					s1MinHeader = args[0] + " Min";
+					s1MaxHeader = args[0] + " Max";
+					s2MinHeader = args[1] + " Min";
+					s2MaxHeader = args[1] + " Max";
 					
-				} 
-				else if (geoComboBoxSelection.equals("2 Towns")) {
-					args[0] = view.getTownList1().getSelectedItem().toString();
-					args[1] = view.getTownList2().getSelectedItem().toString();
-					if (dateErrorChecking.emptySelectionChecking(args[0]) || dateErrorChecking.emptySelectionChecking(args[1])) 
-						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
-					summaryQuery = QueryFactory.createQuery("2 Summary", args, startDate, endDate);
+				} else {
 					
-					s1AvgHeader = view.getTownList1().getSelectedItem() + " Average";
-					s2AvgHeader = view.getTownList2().getSelectedItem() + " Average";
-					s1STDHeader = view.getTownList1().getSelectedItem() + " Standard Deviation";
-					s2STDHeader = view.getTownList2().getSelectedItem() + " Standard Deviation";
-					s1MinHeader = view.getTownList1().getSelectedItem() + " Min";
-					s1MaxHeader = view.getTownList1().getSelectedItem() + " Max";
-					s2MinHeader = view.getTownList2().getSelectedItem() + " Min";
-					s2MaxHeader = view.getTownList2().getSelectedItem() + " Max";
-					
-				} 
-				else if (geoComboBoxSelection.equals("3 Provinces")) {
-					args[0] = view.getThreeProvinceList1().getSelectedItem().toString();
-					args[1] = view.getThreeProvinceList2().getSelectedItem().toString();
-					args[2] = view.getThreeProvinceList3().getSelectedItem().toString();
-					if (dateErrorChecking.emptySelectionChecking(args[0]) || dateErrorChecking.emptySelectionChecking(args[1]) || dateErrorChecking.emptySelectionChecking(args[2])) 
-						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
 					summaryQuery = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
 					
-					s1AvgHeader = view.getThreeProvinceList1().getSelectedItem() + " Average";
-					s2AvgHeader = view.getThreeProvinceList2().getSelectedItem() + " Average";
-					s3AvgHeader = view.getThreeProvinceList3().getSelectedItem() + " Average";
-					s1STDHeader = view.getThreeProvinceList1().getSelectedItem() + " Standard Deviation";
-					s2STDHeader = view.getThreeProvinceList2().getSelectedItem() + " Standard Deviation";
-					s3STDHeader = view.getThreeProvinceList3().getSelectedItem() + " Standard Deviation";
-					s1MinHeader = view.getThreeProvinceList1().getSelectedItem() + " Min";
-					s1MaxHeader = view.getThreeProvinceList1().getSelectedItem() + " Max";
-					s2MinHeader = view.getThreeProvinceList2().getSelectedItem() + " Min";
-					s2MaxHeader = view.getThreeProvinceList2().getSelectedItem() + " Max";
-					s3MinHeader = view.getThreeProvinceList3().getSelectedItem() + " Min";
-					s3MaxHeader = view.getThreeProvinceList3().getSelectedItem() + " Max";
+					s1AvgHeader = args[0] + " Average";
+					s2AvgHeader = args[1] + " Average";
+					s3AvgHeader = args[2] + " Average";
+					s1STDHeader = args[0] + " Standard Deviation";
+					s2STDHeader = args[1] + " Standard Deviation";
+					s3STDHeader = args[2] + " Standard Deviation";
+					s1MinHeader = args[0] + " Min";
+					s1MaxHeader = args[0] + " Max";
+					s2MinHeader = args[1] + " Min";
+					s2MaxHeader = args[1] + " Max";
+					s3MinHeader = args[2] + " Min";
+					s3MaxHeader = args[2] + " Max";
 					
 				} 
-				else {
-					args[0] = view.getThreeTownList1().getSelectedItem().toString();
-					args[1] = view.getThreeTownList2().getSelectedItem().toString();
-					args[2] = view.getThreeTownList3().getSelectedItem().toString();
-					if (dateErrorChecking.emptySelectionChecking(args[0]) || dateErrorChecking.emptySelectionChecking(args[1]) || dateErrorChecking.emptySelectionChecking(args[2])) 
-						JOptionPane.showMessageDialog(view.getFrame(), "One or more selections is empty.");
-					summaryQuery = QueryFactory.createQuery("3 Summary", args, startDate, endDate);
-					
-					s1AvgHeader = view.getThreeTownList1().getSelectedItem() + " Average";
-					s2AvgHeader = view.getThreeTownList2().getSelectedItem() + " Average";
-					s3AvgHeader = view.getThreeTownList3().getSelectedItem() + " Average";
-					s1STDHeader = view.getThreeTownList1().getSelectedItem() + " Standard Deviation";
-					s2STDHeader = view.getThreeTownList2().getSelectedItem() + " Standard Deviation";
-					s3STDHeader = view.getThreeTownList3().getSelectedItem() + " Standard Deviation";
-					s1MinHeader = view.getThreeTownList1().getSelectedItem() + " Min";
-					s1MaxHeader = view.getThreeTownList1().getSelectedItem() + " Max";
-					s2MinHeader = view.getThreeTownList2().getSelectedItem() + " Min";
-					s2MaxHeader = view.getThreeTownList2().getSelectedItem() + " Max";
-					s3MinHeader = view.getThreeTownList3().getSelectedItem() + " Min";
-					s3MaxHeader = view.getThreeTownList3().getSelectedItem() + " Max";
-				}
 				
 				System.out.println(summaryQuery.getQuery());
 				model.loadData(summaryQuery);
