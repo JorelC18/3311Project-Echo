@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author Jorel Louie Chim
  */
 
-public class SQLConnection {
+public class InitializeDatabase {
 	
 	/**
 	 * Main executable method to launch the program.

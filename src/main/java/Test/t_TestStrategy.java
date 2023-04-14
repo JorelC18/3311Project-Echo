@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.inference.TTest;
 
+import SQLConnection.t_TestDataRetrieval;
+
 /**
  * A class that implements the TestStrategy interface and provides a t-test strategy for conducting t-tests with 2 queries
  * using the Apache Math Commons Library.
@@ -67,30 +69,13 @@ public class t_TestStrategy implements TestStrategy {
 	}
 	
 	/**
-	 * retrieves the data from selected location.
+	 * Method call to retrieve data from database for t_testing purposes
 	 * @param query the query needed to retrieve the data
 	 */
 	
 	private double[] retrieveData(String query) throws SQLException {
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/echodata", "root", "password");
-		ResultSet rs;
-		ArrayList<Double> selectedData = new ArrayList<Double>();
-		Statement statement = connection.prepareStatement(query);
-		rs = statement.executeQuery(query);
-		while (rs.next()) {
-			String inputStr = rs.getString(1);
-			Double input = null;
-			if (inputStr != null) {
-				input = Double.parseDouble(rs.getString(1));
-			}
-			selectedData.add(input);
-		}
-		double[] result = new double[selectedData.size()];
-		for (int i = 0; i < selectedData.size(); i++) {
-			if (selectedData.get(i) != null) {
-				result[i] = selectedData.get(i);
-			}
-		}
+		t_TestDataRetrieval t_TestDataRetrieval = new t_TestDataRetrieval();
+		double[] result = t_TestDataRetrieval.t_Test_DataRetrieval(query);
 		return result;
 	}
 	

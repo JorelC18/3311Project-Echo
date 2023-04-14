@@ -25,6 +25,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import SQLConnection.LinearRegressionDataRetrieval;
 import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
@@ -214,28 +215,14 @@ public class LinearRegressionStrategy implements ForecastingStrategy {
 	}
 	
 	/**
-	 * retrieve data from the selected location 
+	 * Method call to retrieve data from database for linear regression forecasting purposes
 	 * @param inputQuery the query command to get the data
 	 */
 	
 	private Instances retrieveData(String inputQuery) throws Exception {
-		InstanceQuery query = new InstanceQuery();
-	    String sql = inputQuery;
-	    query.setDatabaseURL("jdbc:mysql://localhost:3306/echodata");
-	    query.setUsername("root");
-	    query.setPassword("password");
-	    query.setQuery(sql);
-	    Instances data = query.retrieveInstances();
-
-	    // remove null values from the data
-	    RemoveWithValues removeWithValues = new RemoveWithValues();
-	    removeWithValues.setAttributeIndex("2");
-	    removeWithValues.setMatchMissingValues(true);
-	    removeWithValues.setInvertSelection(false);
-	    removeWithValues.setInputFormat(data);
-	    data = Filter.useFilter(data, removeWithValues);
-
-	    return data;
+		LinearRegressionDataRetrieval LinearRegressionDataRetrieval = new LinearRegressionDataRetrieval();
+		Instances result = LinearRegressionDataRetrieval.LinearRegression_DataRetrieval(inputQuery);
+		return result;
 	}
 	
 	/**
